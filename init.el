@@ -7,6 +7,9 @@
   (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/")))
 (package-initialize) ;; You might already have this line
 
+;; start the server so the Terminal can find you
+(server-start)
+
 ;; use exec-path-from-shell so the $PATH is right
 (when (memq window-system '(mac ns))
   (exec-path-from-shell-initialize))
@@ -19,7 +22,7 @@
   (setq mac-command-modifier 'meta)
   (setq mac-option-modifier nil))
 
-;; C-c m opens the current file in Marked
+;; C-c m opens the current file in Marked (only on a Mac)
 (defun markdown-preview-file ()
    "run Marked on the current file and revert the buffer"
    (interactive)
@@ -28,7 +31,10 @@
             (shell-quote-argument (buffer-file-name))))
    )
  
- (global-set-key "\C-cm" 'markdown-preview-file)
+(global-set-key "\C-cm" 'markdown-preview-file)
+
+;; Hide the splash screen, eeew
+(setq inhibit-startup-message t)
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
