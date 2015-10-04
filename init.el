@@ -22,6 +22,10 @@
   (setq mac-command-modifier 'meta)
   (setq mac-option-modifier nil))
 
+;; set up markdown-mode with the proper minor modes
+(add-hook 'markdown-mode-hook 'visual-line-mode)
+(add-hook 'markdown-mode-hook 'pandoc-mode)
+
 ;; C-c m opens the current file in Marked (only on a Mac)
 (defun markdown-preview-file ()
    "run Marked on the current file and revert the buffer"
@@ -49,7 +53,7 @@
     ("04dd0236a367865e591927a3810f178e8d33c372ad5bfef48b5ce90d4b476481" "ab04c00a7e48ad784b52f34aa6bfa1e80d0c3fcacc50e1189af3651013eb0d58" "a0feb1322de9e26a4d209d1cfa236deaf64662bb604fa513cca6a057ddf0ef64" default)))
  '(package-selected-packages
    (quote
-    (wc-mode alect-themes org exec-path-from-shell pandoc-mode markdown-mode))))
+    (olivetti wc-mode alect-themes org exec-path-from-shell pandoc-mode markdown-mode))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
