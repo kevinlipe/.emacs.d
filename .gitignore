@@ -11,6 +11,9 @@ auto-save-list
 tramp
 .\#*
 
+# fancy autosave location
+autosaves/
+
 # Org-mode
 .org-id-locations
 *_archive
@@ -33,3 +36,6 @@ tramp
 
 # cask packages
 .cask/
+
+# ido-last file
+ido.last

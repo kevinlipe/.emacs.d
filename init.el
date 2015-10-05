@@ -10,6 +10,9 @@
 ;; start the server so the Terminal can find you
 (server-start)
 
+;; make buffer switch command auto suggestions, also for find-file command
+(ido-mode 1)
+
 ;; use exec-path-from-shell so the $PATH is right
 (when (memq window-system '(mac ns))
   (exec-path-from-shell-initialize))
@@ -22,8 +25,11 @@
   (setq mac-command-modifier 'meta)
   (setq mac-option-modifier nil))
 
+;; use visual line mode while in anything derived from Text mode or Org
+(add-hook 'text-mode-hook 'visual-line-mode)
+(add-hook 'org-mode-hook 'visual-line-mode)
+
 ;; set up markdown-mode with the proper minor modes
-(add-hook 'markdown-mode-hook 'visual-line-mode)
 (add-hook 'markdown-mode-hook 'pandoc-mode)
 
 ;; C-c m opens the current file in Marked (only on a Mac)
@@ -45,18 +51,19 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(ansi-color-faces-vector
-   [default default default italic underline success warning error])
- '(custom-enabled-themes (quote (alect-dark-alt)))
+ '(custom-enabled-themes (quote (alect-light)))
  '(custom-safe-themes
    (quote
-    ("04dd0236a367865e591927a3810f178e8d33c372ad5bfef48b5ce90d4b476481" "ab04c00a7e48ad784b52f34aa6bfa1e80d0c3fcacc50e1189af3651013eb0d58" "a0feb1322de9e26a4d209d1cfa236deaf64662bb604fa513cca6a057ddf0ef64" default)))
+    ("7153b82e50b6f7452b4519097f880d968a6eaf6f6ef38cc45a144958e553fbc6" "11636897679ca534f0dec6f5e3cb12f28bf217a527755f6b9e744bd240ed47e1" "d34d4f2e7464e8425ddd5964e78a598a6bda7aa6e541eace75a44cb1700e16ec" default)))
+ '(nrepl-message-colors
+   (quote
+    ("#336c6c" "#205070" "#0f2050" "#806080" "#401440" "#6c1f1c" "#6b400c" "#23733c")))
  '(package-selected-packages
    (quote
-    (olivetti wc-mode alect-themes org exec-path-from-shell pandoc-mode markdown-mode))))
+    (zenburn-theme wc-mode pandoc-mode org olivetti markdown-mode exec-path-from-shell anti-zenburn-theme alect-themes))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:inherit nil :stipple nil :background "#3f3f3f" :foreground "#d5d2be" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 140 :width normal :foundry "nil" :family "Source Code Pro")))))
+ '(default ((t (:inherit nil :stipple nil :background "#ded6c5" :foreground "#262626" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 150 :width normal :foundry "nil" :family "Source Code Pro")))))
