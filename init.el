@@ -69,7 +69,10 @@ static char *gnus-pointer[] = {
 \"######..###.######\",
 \"###....####.######\",
 \"###..######.######\",
-\"###########.######\" };"))))
+\"###########.######\" };")))
+ '(package-selected-packages
+   (quote
+    (zenburn-theme wc-mode pandoc-mode org olivetti markdown-mode exec-path-from-shell anti-zenburn-theme alect-themes))))
 
 ;; create the autosave dir if necessary, since emacs won't.
 (make-directory "~/.emacs.d/autosaves/" t)
