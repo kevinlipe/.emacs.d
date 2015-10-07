@@ -72,7 +72,8 @@ static char *gnus-pointer[] = {
 \"###########.######\" };")))
  '(package-selected-packages
    (quote
-    (zenburn-theme wc-mode pandoc-mode org olivetti markdown-mode exec-path-from-shell anti-zenburn-theme alect-themes))))
+    (ox-pandoc zenburn-theme wc-mode pandoc-mode org olivetti markdown-mode exec-path-from-shell anti-zenburn-theme alect-themes)))
+ '(tool-bar-mode nil))
 
 ;; create the autosave dir if necessary, since emacs won't.
 (make-directory "~/.emacs.d/autosaves/" t)
@@ -96,6 +97,13 @@ static char *gnus-pointer[] = {
 ;; set up markdown-mode with the proper minor modes
 (add-hook 'markdown-mode-hook 'pandoc-mode)
 
+;; autoload these filetypes as markdown-mode
+(autoload 'markdown-mode "markdown-mode"
+   "Major mode for editing Markdown files" t)
+(add-to-list 'auto-mode-alist '("\\.text\\'" . markdown-mode))
+(add-to-list 'auto-mode-alist '("\\.markdown\\'" . markdown-mode))
+(add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
+
 ;; C-c m opens the current file in Marked (only on a Mac)
 (defun markdown-preview-file ()
    "run Marked on the current file and revert the buffer"
@@ -116,4 +124,9 @@ static char *gnus-pointer[] = {
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(default ((t (:inherit nil :stipple nil :background "#3f3f3f" :foreground "#d5d2be" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 135 :width normal :foundry "nil" :family "Source Code Pro")))))
+
+;; default options for all output formats
+(setq org-pandoc-options '((standalone . t)))
+;; cancel above settings only for 'docx' format
+(setq org-pandoc-options-for-html '((standalone . nil)))
 
