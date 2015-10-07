@@ -77,9 +77,6 @@ static char *gnus-pointer[] = {
 ;; create the autosave dir if necessary, since emacs won't.
 (make-directory "~/.emacs.d/autosaves/" t)
 
-;; make buffer switch command auto suggestions, also for find-file command
-(ido-mode 1)
-
 ;; use exec-path-from-shell so the $PATH is right
 (when (memq window-system '(mac ns))
   (exec-path-from-shell-initialize))
