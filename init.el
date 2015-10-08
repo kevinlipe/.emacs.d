@@ -94,6 +94,12 @@ static char *gnus-pointer[] = {
 (add-hook 'text-mode-hook 'visual-line-mode)
 (add-hook 'org-mode-hook 'visual-line-mode)
 
+;; org mode stuff, including C-c a for agenda
+(add-to-list 'auto-mode-alist '("\\.org$" . org-mode))
+(define-key global-map "\C-cl" 'org-store-link)
+(define-key global-map "\C-ca" 'org-agenda)
+(setq org-log-done t)
+
 ;; set up markdown-mode with the proper minor modes
 (add-hook 'markdown-mode-hook 'pandoc-mode)
 
