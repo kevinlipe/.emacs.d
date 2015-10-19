@@ -1,7 +1,7 @@
 ;; -*- mode: emacs-lisp -*-
 
 ;; pandoc-mode global settings file
-;; saved on 2015.10.06 09:22
+;; saved on 2015.10.18 14:10
 
 ((latexmathml)
  (mathml)
@@ -25,7 +25,7 @@
  (chapters)
  (no-tex-ligatures)
  (listings)
- (latex-engine)
+ (latex-engine . "xelatex")
  (latex-engine-opt)
  (self-contained)
  (html-q-tags)
