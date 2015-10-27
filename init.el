@@ -83,7 +83,8 @@ static char *gnus-pointer[] = {
   (exec-path-from-shell-initialize))
 
 ;; use GNU ls from coreutils
-(setq insert-directory-program (executable-find "gls"))
+(when (eq system-type 'darwin)
+  (setq insert-directory-program (executable-find "gls")))
 
 ;; map meta to Command instead of Option
 (when (eq system-type 'darwin)
@@ -129,7 +130,7 @@ static char *gnus-pointer[] = {
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:inherit nil :stipple nil :background "#3f3f3f" :foreground "#d5d2be" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 135 :width normal :foundry "nil" :family "Source Code Pro")))))
+ '(default ((t (:inherit nil :stipple nil :background "#3f3f3f" :foreground "#d5d2be" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 140 :width normal :foundry "nil" :family "Source Code Pro")))))
 
 ;; default options for all output formats
 (setq org-pandoc-options '((standalone . t)))
