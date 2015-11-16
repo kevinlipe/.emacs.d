@@ -103,6 +103,7 @@ static char *gnus-pointer[] = {
 
 ;; set up markdown-mode with the proper minor modes
 (add-hook 'markdown-mode-hook 'pandoc-mode)
+(add-hook 'markdown-mode-hook 'wc-goal-mode)
 
 ;; autoload these filetypes as markdown-mode
 (autoload 'markdown-mode "markdown-mode"
