@@ -138,3 +138,5 @@ static char *gnus-pointer[] = {
 ;; cancel above settings only for 'docx' format
 (setq org-pandoc-options-for-html '((standalone . nil)))
 
+;; Set wc-goal-mode modeline display
+(setq wc-goal-modeline-format "WC[%tw/%gw]")
