@@ -20,10 +20,10 @@
  ;; If there is more than one, they won't work right.
  '(auto-save-file-name-transforms (quote ((".*" "~/.emacs.d/autosaves/\\1" t))))
  '(backup-directory-alist (quote ((".*" . "~/.emacs.d/backups/"))))
- '(custom-enabled-themes (quote (zenburn)))
+ '(custom-enabled-themes (quote (anti-zenburn)))
  '(custom-safe-themes
    (quote
-    ("f5eb916f6bd4e743206913e6f28051249de8ccfd070eae47b5bde31ee813d55f" "d34d4f2e7464e8425ddd5964e78a598a6bda7aa6e541eace75a44cb1700e16ec" "7153b82e50b6f7452b4519097f880d968a6eaf6f6ef38cc45a144958e553fbc6" "11636897679ca534f0dec6f5e3cb12f28bf217a527755f6b9e744bd240ed47e1" default)))
+    ("76659fd7fc5ce57d14dfb22b30aac6cf0d4eb0a279f4131be3945d3cfff10bc6" "f5eb916f6bd4e743206913e6f28051249de8ccfd070eae47b5bde31ee813d55f" "d34d4f2e7464e8425ddd5964e78a598a6bda7aa6e541eace75a44cb1700e16ec" "7153b82e50b6f7452b4519097f880d968a6eaf6f6ef38cc45a144958e553fbc6" "11636897679ca534f0dec6f5e3cb12f28bf217a527755f6b9e744bd240ed47e1" default)))
  '(diary-entry-marker (quote font-lock-variable-name-face))
  '(emms-mode-line-icon-image-cache
    (quote
@@ -72,7 +72,7 @@ static char *gnus-pointer[] = {
 \"###########.######\" };")))
  '(package-selected-packages
    (quote
-    (magit-annex magit ox-pandoc zenburn-theme wc-mode pandoc-mode org olivetti markdown-mode exec-path-from-shell anti-zenburn-theme alect-themes)))
+    (wc-goal-mode magit-annex magit ox-pandoc zenburn-theme wc-mode pandoc-mode org olivetti markdown-mode exec-path-from-shell anti-zenburn-theme alect-themes)))
  '(tool-bar-mode nil))
 
 ;; create the autosave dir if necessary, since emacs won't.
@@ -103,6 +103,7 @@ static char *gnus-pointer[] = {
 
 ;; set up markdown-mode with the proper minor modes
 (add-hook 'markdown-mode-hook 'pandoc-mode)
+(add-hook 'markdown-mode-hook 'wc-goal-mode)
 
 ;; autoload these filetypes as markdown-mode
 (autoload 'markdown-mode "markdown-mode"
@@ -130,10 +131,12 @@ static char *gnus-pointer[] = {
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:inherit nil :stipple nil :background "#3f3f3f" :foreground "#d5d2be" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 150 :width normal :foundry "nil" :family "Source Code Pro")))))
+ '(default ((t (:inherit nil :stipple nil :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 150 :width normal :foundry "nil" :family "Source Code Pro")))))
 
 ;; default options for all output formats
 (setq org-pandoc-options '((standalone . t)))
 ;; cancel above settings only for 'docx' format
 (setq org-pandoc-options-for-html '((standalone . nil)))
 
+;; Set wc-goal-mode modeline display
+(setq wc-goal-modeline-format "WC[%tw/%gw]")
