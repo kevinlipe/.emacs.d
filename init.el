@@ -70,7 +70,7 @@ static char *gnus-pointer[] = {
 \"###....####.######\",
 \"###..######.######\",
 \"###########.######\" };")) t)
- '(olivetti-body-width 74)
+ '(olivetti-body-width 72)
  '(package-selected-packages
    (quote
     (wc-goal-mode magit-annex magit ox-pandoc zenburn-theme wc-mode pandoc-mode org olivetti markdown-mode exec-path-from-shell anti-zenburn-theme alect-themes)))
