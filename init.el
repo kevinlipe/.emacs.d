@@ -133,7 +133,7 @@ static char *gnus-pointer[] = {
       '(default ((t (:inherit nil :stipple nil :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 150 :width normal :foundry "nil" :family "Source Code Pro")))))
  ;; custom-set-faces for Linux (the "else")
    (custom-set-faces
-    '(default ((t (:inherit nil :stipple nil :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 120 :width normal :foundry "nil" :family "Hack"))))))
+    '(default ((t (:inherit nil :stipple nil :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 110 :width normal :foundry "nil" :family "Hack"))))))
 
 ;; default options for all output formats
 (setq org-pandoc-options '((standalone . t)))
