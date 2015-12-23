@@ -131,8 +131,8 @@ static char *gnus-pointer[] = {
 (if (eq system-type 'darwin) ;; use Source Code Pro on OS X, Hack on Linux
  ;; custom-set-faces for OS X (the "if")
      (custom-set-faces
-      '(default ((t (:inherit nil :stipple nil :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 150 :width normal :foundry "nil" :family "Source Code Pro")))))
- ;; custom-set-faces for Linux (the "else")
+      '(default ((t (:inherit nil :stipple nil :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 140 :width normal :foundry "nil" :family "Hack")))))
+ ;; Custom-Set-faces for Linux (the "else")
    (custom-set-faces
     '(default ((t (:inherit nil :stipple nil :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 120 :width normal :foundry "nil" :family "Hack"))))))
 
