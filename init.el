@@ -132,7 +132,7 @@ static char *gnus-pointer[] = {
  ;; custom-set-faces for OS X (the "if")
      (custom-set-faces
       '(default ((t (:inherit nil :stipple nil :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 140 :width normal :foundry "nil" :family "Hack")))))
- ;; Custom-Set-faces for Linux (the "else")
+ ;; Custom-Set-Faces for Linux (the "else")
    (custom-set-faces
     '(default ((t (:inherit nil :stipple nil :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 120 :width normal :foundry "nil" :family "Hack"))))))
 
