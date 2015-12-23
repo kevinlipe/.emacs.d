@@ -112,6 +112,7 @@ static char *gnus-pointer[] = {
 (add-to-list 'auto-mode-alist '("\\.text\\'" . markdown-mode))
 (add-to-list 'auto-mode-alist '("\\.markdown\\'" . markdown-mode))
 (add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
+(add-to-list 'auto-mode-alist '("\\.mmd\\'" . markdown-mode))
 
 ;; C-c m opens the current file in Marked (only on a Mac)
 (defun markdown-preview-file ()
