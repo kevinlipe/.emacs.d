@@ -25,82 +25,11 @@
    (quote
     ("f245c9f24b609b00441a6a336bcc556fe38a6b24bfc0ca4aedd4fe23d858ba31" "c2ffe309e80032963afa9cf462bb119503bebd40f8df831ccdb2de13813f48e7" "76659fd7fc5ce57d14dfb22b30aac6cf0d4eb0a279f4131be3945d3cfff10bc6" "f5eb916f6bd4e743206913e6f28051249de8ccfd070eae47b5bde31ee813d55f" "d34d4f2e7464e8425ddd5964e78a598a6bda7aa6e541eace75a44cb1700e16ec" "7153b82e50b6f7452b4519097f880d968a6eaf6f6ef38cc45a144958e553fbc6" "11636897679ca534f0dec6f5e3cb12f28bf217a527755f6b9e744bd240ed47e1" default)))
  '(diary-entry-marker (quote font-lock-variable-name-face))
- '(emms-mode-line-icon-image-cache
-   (quote
-    (image :type xpm :ascent center :data "/* XPM */
-static char *note[] = {
-/* width height num_colors chars_per_pixel */
-\"    10   11        2            1\",
-/* colors */
-\". c #358d8d\",
-\"# c None s None\",
-/* pixels */
-\"###...####\",
-\"###.#...##\",
-\"###.###...\",
-\"###.#####.\",
-\"###.#####.\",
-\"#...#####.\",
-\"....#####.\",
-\"#..######.\",
-\"#######...\",
-\"######....\",
-\"#######..#\" };")))
- '(fci-rule-color "#c7c7c7")
- '(gnus-logo-colors (quote ("#0d7b72" "#adadad")) t)
- '(gnus-mode-line-image-cache
-   (quote
-    (image :type xpm :ascent center :data "/* XPM */
-static char *gnus-pointer[] = {
-/* width height num_colors chars_per_pixel */
-\"    18    13        2            1\",
-/* colors */
-\". c #358d8d\",
-\"# c None s None\",
-/* pixels */
-\"##################\",
-\"######..##..######\",
-\"#####........#####\",
-\"#.##.##..##...####\",
-\"#...####.###...##.\",
-\"#..###.######.....\",
-\"#####.########...#\",
-\"###########.######\",
-\"####.###.#..######\",
-\"######..###.######\",
-\"###....####.######\",
-\"###..######.######\",
-\"###########.######\" };")) t)
- '(nrepl-message-colors
-   (quote
-    ("#336c6c" "#205070" "#0f2050" "#806080" "#401440" "#6c1f1c" "#6b400c" "#23733c")))
  '(olivetti-body-width 72)
  '(package-selected-packages
    (quote
     (wc-goal-mode magit-annex magit ox-pandoc zenburn-theme wc-mode pandoc-mode org olivetti markdown-mode exec-path-from-shell anti-zenburn-theme alect-themes)))
- '(tool-bar-mode nil)
- '(vc-annotate-background "#d4d4d4")
- '(vc-annotate-color-map
-   (quote
-    ((20 . "#437c7c")
-     (40 . "#336c6c")
-     (60 . "#205070")
-     (80 . "#2f4070")
-     (100 . "#1f3060")
-     (120 . "#0f2050")
-     (140 . "#a080a0")
-     (160 . "#806080")
-     (180 . "#704d70")
-     (200 . "#603a60")
-     (220 . "#502750")
-     (240 . "#401440")
-     (260 . "#6c1f1c")
-     (280 . "#935f5c")
-     (300 . "#834744")
-     (320 . "#732f2c")
-     (340 . "#6b400c")
-     (360 . "#23733c"))))
- '(vc-annotate-very-old-color "#23733c"))
+
 
 ;; create the autosave dir if necessary, since emacs won't.
 (make-directory "~/.emacs.d/autosaves/" t)
@@ -109,11 +38,11 @@ static char *gnus-pointer[] = {
 (when (memq window-system '(mac ns))
   (exec-path-from-shell-initialize))
 
-;; use GNU ls from coreutils
+;; use GNU ls from coreutils when on OS X
 (when (eq system-type 'darwin)
   (setq insert-directory-program (executable-find "gls")))
 
-;; map meta to Command instead of Option
+;; map meta to Command instead of Option on OS X
 (when (eq system-type 'darwin)
   (setq mac-command-modifier 'meta)
   (setq mac-option-modifier nil))
@@ -148,11 +77,11 @@ static char *gnus-pointer[] = {
     (format "open -a /Applications/Marked\\ 2.app %s"
             (shell-quote-argument (buffer-file-name))))
    )
- 
-(global-set-key "\C-cm" 'markdown-preview-file)
+ (global-set-key "\C-cm" 'markdown-preview-file)
 
-;; Hide the splash screen, eeew
+;; Hide the splash screen and the toolbar
 (setq inhibit-startup-message t)
+(tool-bar-mode -1)
 
 (if (eq system-type 'darwin) ;; use Source Code Pro on OS X, Hack on Linux
  ;; custom-set-faces for OS X (the "if")
