@@ -39,3 +39,9 @@ autosaves/
 
 # ido-last file
 ido.last
+
+# request folder
+request
+
+# random sessions
+session.*
