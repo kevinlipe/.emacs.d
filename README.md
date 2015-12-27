@@ -1,0 +1,1 @@
+This is my personal `~/.emacs.d/` setup, excluding packages installed via MELPA and my autosave and backup directories (see `init.el` for more about that).
