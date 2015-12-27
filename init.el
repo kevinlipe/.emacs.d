@@ -12,17 +12,17 @@
 ;; start the server so the Terminal can find you
 (server-start)
 
-;; Put autosave files (ie #foo#) and backup files (ie foo~) in ~/.emacs.d/.
-'(auto-save-file-name-transforms (quote ((".*" "~/.emacs.d/autosaves/\\1" t))))
- '(backup-directory-alist (quote ((".*" . "~/.emacs.d/backups/"))))
-
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
 
+;; Put autosave files (ie #foo#) and backup files (ie foo~) in ~/.emacs.d/.
+'(auto-save-file-name-transforms (quote ((".*" "~/.emacs.d/autosaves/\\1" t))))
+'(backup-directory-alist (quote ((".*" . "~/.emacs.d/backups/"))))
 
+;; theme stuff
  '(custom-enabled-themes (quote (base16-eighties-dark)))
  '(custom-safe-themes
    (quote
