@@ -92,7 +92,7 @@
       '(default ((t (:inherit nil :stipple nil :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 140 :width normal :foundry "nil" :family "Hack")))))
  ;; Custom-Set-Faces for Linux (the "else")
    (custom-set-faces
-    '(default ((t (:inherit nil :stipple nil :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 110 :width normal :foundry "nil" :family "Hack"))))))
+    '(default ((t (:inherit nil :stipple nil :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 105 :width normal :foundry "nil" :family "Hack"))))))
 
 ;; default options for all output formats
 (setq org-pandoc-options '((standalone . t)))
