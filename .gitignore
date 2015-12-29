@@ -45,3 +45,6 @@ request
 
 # random sessions
 session.*
+
+# ignore files that I keep around as backups (*.OLD files)
+*.OLD
