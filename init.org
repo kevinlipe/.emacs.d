@@ -173,8 +173,8 @@ Use the Hack font (which is installed on my systems) at different sizes dependin
 #+BEGIN_SRC emacs-lisp
   (cond ((member "Hack" (font-family-list))
    (if (memq window-system '(mac ns))
-    (set-face-attribute 'default nil :font "Hack-13") ;; on OS X
-    (set-face-attribute 'default nil :font "Hack-10")) ;; on Linux
+    (set-face-attribute 'default nil :font "Hack" :height 130) ;; on OS X
+    (set-face-attribute 'default nil :font "Hack" :height 105)) ;; on Linux
     ))
 #+END_SRC
 
