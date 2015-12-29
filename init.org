@@ -5,7 +5,7 @@
 
 * About
 
-This is an attempt at an Emacs configuration written in Org mode, which is mostly so I can look through it and remember how all of this works. Also, if it's going to be public, it might as well be well-documented. A lot of this setup (at least in spirit, especially the tangle-and-compile bits) is borrowed from [[https://github.com/larstvei/dot-emacs][Lars Tveito's Emacs/Org setup]].
+This is an attempt at an Emacs configuration written in Org mode, which is mostly so I can look through it and remember how all of this works. Also, if it's going to be public, it might as well be well-documented. A lot of this setup (at least in spirit, and literally in the case of the tangle-and-compile bits) is borrowed from [[https://github.com/larstvei/dot-emacs][Lars Tveito's Emacs/Org setup]].
 
 * Configurations
 ** Meta
@@ -121,8 +121,8 @@ This is an attempt at an Emacs configuration written in Org mode, which is mostl
    installed. To ensure we install missing packages if they are missing.
 
    #+BEGIN_SRC emacs-lisp
-   (let* ((packages
-         '(base16-theme         ; Base16 theme packages; we'll use "Eighties"
+   (let* ((packages '(
+	   base16-theme         ; Base16 theme packages; we'll use "Eighties"
            magit                ; control Git from Emacs
 	   markdown-mode        ; Major mode for editing Markdown files
            org                  ; Outline-based notes manager
@@ -146,27 +146,68 @@ This is an attempt at an Emacs configuration written in Org mode, which is mostl
                         (package-install 'exec-path-from-shell)))))
    #+END_SRC
 
+** Defaults
+
+   Answering /yes/ and /no/ to each question from Emacs can be tedious, a
+   single /y/ or /n/ will suffice.
+
+   #+BEGIN_SRC emacs-lisp
+   (fset 'yes-or-no-p 'y-or-n-p)
+   #+END_SRC
+
+   To avoid file system clutter we put all auto saved files in a single
+   directory.
+
+   #+BEGIN_SRC emacs-lisp
+   (defvar emacs-autosave-directory
+     (concat user-emacs-directory "autosaves/")
+     "This variable dictates where to put auto saves. It is set to a
+     directory called autosaves located wherever your .emacs.d/ is
+     located.")
+
+   ;; Sets all files to be backed up and auto saved in a single directory.
+   (setq backup-directory-alist
+         `((".*" . ,emacs-autosave-directory))
+         auto-save-file-name-transforms
+         `((".*" ,emacs-autosave-directory t)))
+   #+END_SRC
+
 ** Mac OS X
 
 These are the bits of the configuration which are only necessary on Mac OS X (which is where I run this configuration half the time; the other half is spent on Fedora). =exec-path-from-shell= includes environment variables from the shell (things like =$PATH= and such). 
 
    #+BEGIN_SRC emacs-lisp
-;; use exec-path-from-shell so the $PATH is right
+;; code to run only if we're on an OS X system
 (when (memq window-system '(mac ns))
-  (exec-path-from-shell-initialize) ;; use exec-path-from-shell for $PATH
-  (setq insert-directory-program (executable-find "gls")) ;; use GNU coreutils from Homebrew for dired mode
-  (setq mac-command-modified 'meta) ;; use Command instead of Option as Meta
-  (setq mac-option-modified nil) ;; don't do anything with Option
-)
+  ;; use exec-path-from-shell for $PATH
+  (exec-path-from-shell-initialize) 
+  ;; use GNU coreutils for dired (installed from Homebrew)
+  (setq insert-directory-program (executable-find "gls")) 
+  ;; use Command instead of Option as Meta
+  (setq mac-command-modified 'meta) 
+  ;; don't do anything with Option
+  (setq mac-option-modified nil))
   #+END_SRC
 
-** Theme
+** Theme, Fonts, and Appearance
 
 This sets =base16-eighties-dark= as the default theme.
 
 #+BEGIN_SRC emacs-lisp
   (load-theme 'base16-eighties-dark t)
 #+END_SRC
+
+I like to use the =base16-eighties-dark= theme, but I also like the light variant, and I'd like to use this function to be able to cycle between them.
+
+   #+BEGIN_SRC emacs-lisp
+   (defun cycle-themes ()
+     "Returns a function that lets you cycle your themes."
+     (lexical-let ((themes '#1=(base16-eighties-dark base16-eighties-light . #1#)))
+       (lambda ()
+         (interactive)
+         ;; Rotates the thme cycle and changes the current theme.
+         (load-theme (car (setq themes (cdr themes))) t))))
+   #+END_SRC
 
 Use the Hack font (which is installed on my systems) at different sizes depending on whether we're on OS X or on Linux.
 
@@ -186,21 +227,15 @@ We want to suppress the (kinda hideous) Emacs splash screen, and also hide the i
    (tool-bar-mode -1)
 #+END_SRC
 
-** Autosave with custom-set-variables
+** custom-set-variables
 
-We want Emacs to use directories within =~/.emacs.d-= for autosaving files and backup files so that they're not scattered all over the filesystem. So far the only way I know how to do this is using =custom-set-variables=.
+This sets the default width of =olivetti-mode= since I'm not sure how else to do it.
 
 #+BEGIN_SRC emacs-lisp
   (custom-set-variables
-    ;; Put autosave files (ie #foo#) and backup files (ie foo~) in ~/.emacs.d/.
-    '(auto-save-file-name-transforms (quote ((".*" "~/.emacs.d/autosaves/\\1" t))))
-    '(backup-directory-alist (quote ((".*" . "~/.emacs.d/backups/")))))
-
-  ;; create the autosave dir if necessary, since emacs won't.
-  (make-directory "~/.emacs.d/autosaves/" t)
 
   ;; also set olivetti mode width since I don't know where else to do this
-   '(olivetti-body-width 72)
+   '(olivetti-body-width 72))
 #+END_SRC
 
 * Mode-specific
@@ -294,20 +329,9 @@ This is all stuff that's in the config file that doesn't need to be pulled out y
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
 
-
-
 ;; theme stuff
  '(custom-enabled-themes (quote (base16-eighties-dark)))
- '(custom-safe-themes
-   (quote
-    ("f245c9f24b609b00441a6a336bcc556fe38a6b24bfc0ca4aedd4fe23d858ba31" "c2ffe309e80032963afa9cf462bb119503bebd40f8df831ccdb2de13813f48e7" "76659fd7fc5ce57d14dfb22b30aac6cf0d4eb0a279f4131be3945d3cfff10bc6" "f5eb916f6bd4e743206913e6f28051249de8ccfd070eae47b5bde31ee813d55f" "d34d4f2e7464e8425ddd5964e78a598a6bda7aa6e541eace75a44cb1700e16ec" "7153b82e50b6f7452b4519097f880d968a6eaf6f6ef38cc45a144958e553fbc6" "11636897679ca534f0dec6f5e3cb12f28bf217a527755f6b9e744bd240ed47e1" default)))
  '(diary-entry-marker (quote font-lock-variable-name-face))
-
- '(package-selected-packages
-   (quote
-    (wc-goal-mode magit-annex magit ox-pandoc zenburn-theme wc-mode pandoc-mode org olivetti markdown-mode exec-path-from-shell anti-zenburn-theme alect-themes))))
-
-
 
 (if (eq system-type 'darwin) ;; use Source Code Pro on OS X, Hack on Linux
  ;; custom-set-faces for OS X (the "if")
@@ -317,6 +341,23 @@ This is all stuff that's in the config file that doesn't need to be pulled out y
    (custom-set-faces
     '(default ((t (:inherit nil :stipple nil :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 105 :width normal :foundry "nil" :family "Hack"))))))
 
+* License
 
+  My Emacs configurations written in Org mode. Format based on the Emacs configuration of Lars Tveito.
 
+  Copyright (c) 2015 Kevin Lipe
+  Copyright (c) 2013 - 2015 Lars Tveito
 
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  
