@@ -46,5 +46,7 @@ request
 # random sessions
 session.*
 
+# pandoc mode preferences
+/pandoc-mode/
 # ignore files that I keep around as backups (*.OLD files)
 *.OLD
