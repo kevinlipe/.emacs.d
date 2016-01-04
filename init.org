@@ -2,7 +2,7 @@
 #+AUTHOR: Kevin Lipe
 #+BABEL: :cache yes
 #+PROPERTY: header-args :tangle yes
-
+ 
 * About
 
 This is an attempt at an Emacs configuration written in Org mode, which is mostly so I can look through it and remember how all of this works. Also, if it's going to be public, it might as well be well-documented. A lot of this setup (at least in spirit, and literally in the case of the tangle-and-compile bits) is borrowed from [[https://github.com/larstvei/dot-emacs][Lars Tveito's Emacs/Org setup]].
@@ -184,9 +184,9 @@ These are the bits of the configuration which are only necessary on Mac OS X (wh
   ;; use GNU coreutils for dired (installed from Homebrew)
   (setq insert-directory-program (executable-find "gls")) 
   ;; use Command instead of Option as Meta
-  (setq mac-command-modified 'meta) 
+  (setq mac-command-modifier 'meta) 
   ;; don't do anything with Option
-  (setq mac-option-modified nil))
+  (setq mac-option-modifier nil))
   #+END_SRC
 
 ** Theme, Fonts, and Appearance
@@ -214,7 +214,7 @@ Use the Hack font (which is installed on my systems) at different sizes dependin
 #+BEGIN_SRC emacs-lisp
   (cond ((member "Hack" (font-family-list))
    (if (memq window-system '(mac ns))
-    (set-face-attribute 'default nil :font "Hack" :height 130) ;; on OS X
+    (set-face-attribute 'default nil :font "Hack" :height 140) ;; on OS X
     (set-face-attribute 'default nil :font "Hack" :height 105)) ;; on Linux
     ))
 #+END_SRC
