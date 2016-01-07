@@ -308,6 +308,8 @@ Set everything to be a standalone =pandoc= export except for HTML output, which 
   (setq org-pandoc-options '((standalone . t)))
   ;; cancel above settings only for 'html' format
   (setq org-pandoc-options-for-html '((standalone . nil)))
+  ;; special settings for latex-pdf exporter
+  (setq org-pandoc-options-for-latex-pdf '((latex-engine . "xelatex")))
 #+END_SRC
 
 ** wc-goal-mode
