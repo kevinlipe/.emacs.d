@@ -92,7 +92,7 @@ This is an attempt at an Emacs configuration written in Org mode, which is mostl
         (when (file-exists-p private-file)
           (load-file private-file)))))
    #+END_SRC
-
+ 
 ** Packages
 
    Managing extensions for Emacs is simplified using =package= which is
