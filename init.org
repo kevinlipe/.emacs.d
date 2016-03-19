@@ -2,7 +2,7 @@
 #+AUTHOR: Kevin Lipe
 #+BABEL: :cache yes
 #+PROPERTY: header-args :tangle yes
- 
+   
 * About
 
 This is my Emacs configuration, written in Org mode, which is mostly so I can look through it and remember how all of this works. Also, if it's going to be public, it might as well be well-documented. A lot of this setup (at least in spirit, and literally in the case of the tangle-and-compile bits) is borrowed from [[https://github.com/larstvei/dot-emacs][Lars Tveito's Emacs/Org setup]].
