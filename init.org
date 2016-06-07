@@ -194,7 +194,7 @@ These are the bits of the configuration which are only necessary on Mac OS X (wh
 This sets =base16-eighties-dark= as the default theme.
 
 #+BEGIN_SRC emacs-lisp
-  (load-theme 'base16-eighties-dark t)
+  (load-theme 'base16-eighties-light t)
 #+END_SRC
 
 I like to use the =base16-eighties-dark= theme, but I also like the light variant, and I'd like to use this function to be able to cycle between them.
