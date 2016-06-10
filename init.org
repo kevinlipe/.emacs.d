@@ -197,12 +197,12 @@ This sets =base16-eighties-dark= as the default theme.
   (load-theme 'base16-railscasts-dark t)
 #+END_SRC
 
-I like to use the =base16-eighties-dark= theme, but I also like the light variant, and I'd like to use this function to be able to cycle between them.
+I like to use the =base16-railscasts-dark= theme, but I also like the light variant, and I'd like to use this function to be able to cycle between them.
 
    #+BEGIN_SRC emacs-lisp
    (defun cycle-themes ()
      "Returns a function that lets you cycle your themes."
-     (lexical-let ((themes '#1=(base16-eighties-dark base16-eighties-light . #1#)))
+     (lexical-let ((themes '#1=(base16-railscasts-dark base16-railscasts-light . #1#)))
        (lambda ()
          (interactive)
          ;; Rotates the thme cycle and changes the current theme.
