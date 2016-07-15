@@ -126,7 +126,8 @@ This is my Emacs configuration, written in Org mode, which is mostly so I can lo
            magit                ; control Git from Emacs
 	   markdown-mode        ; Major mode for editing Markdown files
            org                  ; Outline-based notes manager
-           ox-pandoc            ; org exporter for pandoc
+           org-bullets          ; Fancy UTF-8 bullets for org
+	   ox-pandoc            ; org exporter for pandoc
            olivetti             ; Minor mode for a nice writing environment.
            pandoc-mode          ; Minor mode for interacting with pandoc via hydra
 	   request              ; something URL related
@@ -289,14 +290,16 @@ I want to automatically use =visual-line-mode= if I'm in a mode that is derived 
 
 ** Org mode
 
-Automatically load Org for =org= files. Also, use C-c a to automatically pull up the Org agenda.
+Automatically load Org for =org= files. Also, use C-c a to automatically pull up the Org agenda. Also, use =org-bullets= for fancy UTF-8 bullets instead of ugly ones in Org mode.
 
 #+BEGIN_SRC emacs-lisp
   ;; org mode stuff, including C-c a for agenda
+  (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
   (add-to-list 'auto-mode-alist '("\\.org$" . org-mode))
   (define-key global-map "\C-cl" 'org-store-link)
   (define-key global-map "\C-ca" 'org-agenda)
   (setq org-log-done t)
+
 #+END_SRC
 
 ** ox-pandoc
