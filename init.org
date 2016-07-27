@@ -213,10 +213,10 @@ I like to use the =base16-railscasts-dark= theme, but I also like the light vari
 Use the Hack font (which is installed on my systems) at different sizes depending on whether we're on OS X or on Linux.
 
 #+BEGIN_SRC emacs-lisp
-  (cond ((member "Hack" (font-family-list))
+  (cond ((member "Oxygen Mono" (font-family-list))
    (if (memq window-system '(mac ns))
-    (set-face-attribute 'default nil :font "Hack" :height 140) ;; on OS X
-    (set-face-attribute 'default nil :font "Hack" :height 105)) ;; on Linux
+    (set-face-attribute 'default nil :font "Oxygen Mono" :height 140) ;; on OS X
+    (set-face-attribute 'default nil :font "Oxygen Mono" :height 105)) ;; on Linux
     ))
 #+END_SRC
 
