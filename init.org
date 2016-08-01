@@ -122,8 +122,7 @@ This is my Emacs configuration, written in Org mode, which is mostly so I can lo
 
    #+BEGIN_SRC emacs-lisp
    (let* ((packages '(
-	   ; base16-theme         ; Base16 theme packages; we'll use "Eighties"
-           color-theme-sanityinc-tomorrow ; new color theme
+           ample-theme          ; install the Ample themes
 	   magit                ; control Git from Emacs
 	   markdown-mode        ; Major mode for editing Markdown files
            org                  ; Outline-based notes manager
@@ -193,7 +192,7 @@ These are the bits of the configuration which are only necessary on Mac OS X (wh
 
 ** Theme, Fonts, and Appearance
 
-This sets =base16-eighties-dark= as the default theme.
+This loads the themes from the =ample-theme= packages and then sets =ample= as the default theme.
 
 #+BEGIN_SRC emacs-lisp
   ;; load all ample themes
@@ -206,7 +205,7 @@ This sets =base16-eighties-dark= as the default theme.
 
 I like to use the =ample= theme, in the standard version, but the flat and light versions are nice and I like to have them loaded in case I want to enable them later on.
 
-Use the Oxygen Mono font (which is installed on my systems) at different sizes depending on whether we're on OS X or on Linux. 
+I like to use the Oxygen Mono font (from the KDE project) on OS X, but on Linux I like to use the Hack font at a different size.
 
 #+BEGIN_SRC emacs-lisp
   (cond ((member "Oxygen Mono" (font-family-list))
@@ -340,28 +339,6 @@ Set the display for =wc-goal-mode= in the modeline.
   ;; Set wc-goal-mode modeline display
   (setq wc-goal-modeline-format "WC[%w;%tw/%gw]")
 #+END_SRC
-
-* Leftovers
-
-This is all stuff that's in the config file that doesn't need to be pulled out yet because I'm not sure whether it's important or not.
-
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
-
-;; theme stuff
- '(custom-enabled-themes (quote (base16-eighties-dark)))
- '(diary-entry-marker (quote font-lock-variable-name-face))
-
-(if (eq system-type 'darwin) ;; use Source Code Pro on OS X, Hack on Linux
- ;; custom-set-faces for OS X (the "if")
-     (custom-set-faces
-      '(default ((t (:inherit nil :stipple nil :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 140 :width normal :foundry "nil" :family "Hack")))))
- ;; Custom-Set-Faces for Linux (the "else")
-   (custom-set-faces
-    '(default ((t (:inherit nil :stipple nil :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 105 :width normal :foundry "nil" :family "Hack"))))))
 
 * License
 
