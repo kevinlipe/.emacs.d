@@ -122,8 +122,9 @@ This is my Emacs configuration, written in Org mode, which is mostly so I can lo
 
    #+BEGIN_SRC emacs-lisp
    (let* ((packages '(
-	   base16-theme         ; Base16 theme packages; we'll use "Eighties"
-           magit                ; control Git from Emacs
+	   ; base16-theme         ; Base16 theme packages; we'll use "Eighties"
+           color-theme-sanityinc-tomorrow ; new color theme
+	   magit                ; control Git from Emacs
 	   markdown-mode        ; Major mode for editing Markdown files
            org                  ; Outline-based notes manager
            org-bullets          ; Fancy UTF-8 bullets for org
@@ -195,22 +196,17 @@ These are the bits of the configuration which are only necessary on Mac OS X (wh
 This sets =base16-eighties-dark= as the default theme.
 
 #+BEGIN_SRC emacs-lisp
-  (load-theme 'base16-railscasts-dark t)
+  ;; load all ample themes
+  (load-theme 'ample t t)
+  (load-theme 'ample-flat t t)
+  (load-theme 'ample-light t t)
+  ;; and then emable one of them
+  (enable-theme 'ample)
 #+END_SRC
 
-I like to use the =base16-railscasts-dark= theme, but I also like the light variant, and I'd like to use this function to be able to cycle between them.
+I like to use the =ample= theme, in the standard version, but the flat and light versions are nice and I like to have them loaded in case I want to enable them later on.
 
-   #+BEGIN_SRC emacs-lisp
-   (defun cycle-themes ()
-     "Returns a function that lets you cycle your themes."
-     (lexical-let ((themes '#1=(base16-railscasts-dark base16-railscasts-light . #1#)))
-       (lambda ()
-         (interactive)
-         ;; Rotates the thme cycle and changes the current theme.
-         (load-theme (car (setq themes (cdr themes))) t))))
-   #+END_SRC
-
-Use the Hack font (which is installed on my systems) at different sizes depending on whether we're on OS X or on Linux.
+Use the Oxygen Mono font (which is installed on my systems) at different sizes depending on whether we're on OS X or on Linux. 
 
 #+BEGIN_SRC emacs-lisp
   (cond ((member "Oxygen Mono" (font-family-list))
