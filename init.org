@@ -173,6 +173,15 @@ This is my Emacs configuration, written in Org mode, which is mostly so I can lo
          `((".*" ,emacs-autosave-directory t)))
    #+END_SRC
 
+  Map the *Meta* key to also be invoked by C-x C-m (and C-c C-m) so that you don't have to reach all over the place for them.
+
+#+BEGIN_SRC emacs-lisp
+
+(global-set-key "\C-x\C-m" 'execute-extended-command)
+(global-set-key "\C-c\C-m" 'execute-extended-command)
+
+#+END_SRC
+
 ** Mac OS X
 
 These are the bits of the configuration which are only necessary on Mac OS X (which is where I run this configuration half the time; the other half is spent on Fedora). =exec-path-from-shell= includes environment variables from the shell (things like =$PATH= and such). 
