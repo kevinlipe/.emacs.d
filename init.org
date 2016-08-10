@@ -173,13 +173,21 @@ This is my Emacs configuration, written in Org mode, which is mostly so I can lo
          `((".*" ,emacs-autosave-directory t)))
    #+END_SRC
 
+** Customized key bindings
+
   Map the *Meta* key to also be invoked by C-x C-m (and C-c C-m) so that you don't have to reach all over the place for them.
 
 #+BEGIN_SRC emacs-lisp
+  (global-set-key "\C-x\C-m" 'execute-extended-command)
+  (global-set-key "\C-c\C-m" 'execute-extended-command)
+#+END_SRC
 
-(global-set-key "\C-x\C-m" 'execute-extended-command)
-(global-set-key "\C-c\C-m" 'execute-extended-command)
+Map C-w to =backward-kill-word= for easier fixing of typos (which means less reaching for backspace) and then map =kill-region= to C-x C-k so that we can still get to it easily.
 
+#+BEGIN_SRC emacs-lisp
+  (global-set-key "\C-w" 'backward-kill-word)
+  (global-set-key "\C-x\C-k" 'kill-region)
+  (global-set-key "\C-c\C-k" 'kill-region)
 #+END_SRC
 
 ** Mac OS X
