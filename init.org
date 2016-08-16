@@ -127,6 +127,7 @@ This is my Emacs configuration, written in Org mode, which is mostly so I can lo
 	   markdown-mode        ; Major mode for editing Markdown files
            org                  ; Outline-based notes manager
            org-bullets          ; Fancy UTF-8 bullets for org
+	;   org-trello           ; org minor mode for connecting to Trello
 	   ox-pandoc            ; org exporter for pandoc
            olivetti             ; Minor mode for a nice writing environment.
            pandoc-mode          ; Minor mode for interacting with pandoc via hydra
