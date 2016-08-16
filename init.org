@@ -149,7 +149,13 @@ This is my Emacs configuration, written in Org mode, which is mostly so I can lo
 
 ** Defaults
 
-   Answering /yes/ and /no/ to each question from Emacs can be tedious, a
+Always start the server so that =emacsclient= works from the command line.
+
+#+BEGIN_SRC emacs-lisp
+(server-start) ;; start the server on startup
+#+END_SRC
+
+Answering /yes/ and /no/ to each question from Emacs can be tedious, a
    single /y/ or /n/ will suffice.
 
    #+BEGIN_SRC emacs-lisp
