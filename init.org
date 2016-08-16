@@ -127,7 +127,7 @@ This is my Emacs configuration, written in Org mode, which is mostly so I can lo
 	   markdown-mode        ; Major mode for editing Markdown files
            org                  ; Outline-based notes manager
            org-bullets          ; Fancy UTF-8 bullets for org
-	;   org-trello           ; org minor mode for connecting to Trello
+	   org-trello           ; org minor mode for connecting to Trello
 	   ox-pandoc            ; org exporter for pandoc
            olivetti             ; Minor mode for a nice writing environment.
            pandoc-mode          ; Minor mode for interacting with pandoc via hydra
@@ -229,7 +229,7 @@ This loads the themes from the =ample-theme= packages and then sets =ample= as t
 
 I like to use the =ample= theme, in the standard version, but the flat and light versions are nice and I like to have them loaded in case I want to enable them later on.
 
-I like to use the Oxygen Mono font (from the KDE project) on OS X, but on Linux I like to use the Hack font at a different size.
+I like to use the Oxygen Mono font (from the KDE project) on OS X, but on Linux I like to use the Cousine font at a different size.
 
 #+BEGIN_SRC emacs-lisp
   (cond ((member "Oxygen Mono" (font-family-list))
