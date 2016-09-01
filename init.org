@@ -366,6 +366,17 @@ Set the display for =wc-goal-mode= in the modeline.
   (setq wc-goal-modeline-format "WC[%w;%tw/%gw]")
 #+END_SRC
 
+** csv-mode
+
+We want =csv-mode= to automatically load when we open a file with the .csv extension.
+
+#+BEGIN_SRC emacs-lisp
+;; autoload these filetypes as csv-mode
+(autoload 'csv-mode "csv-mode"
+   "Major mode for editing CSV files" t)
+(add-to-list 'auto-mode-alist '("\\.csv\\'" . csv-mode))
+#+END_SRC
+
 * License
 
   My Emacs configurations written in Org mode. Format based on the Emacs configuration of Lars Tveito.
