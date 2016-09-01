@@ -131,8 +131,7 @@ This is my Emacs configuration, written in Org mode, which is mostly so I can lo
 	   ox-pandoc            ; org exporter for pandoc
            olivetti             ; Minor mode for a nice writing environment.
            pandoc-mode          ; Minor mode for interacting with pandoc via hydra
-	   quack                ; Scheme editing and REPL 
-	   racket-mode          ; Syntax highlighting and DrRacket for Racket
+
 	   request              ; something URL related
 	   request-deferred     ; not really sure what this does
 	   wc-goal-mode         ; Set goal wordcounts (minor mode)
