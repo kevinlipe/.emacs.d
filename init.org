@@ -227,9 +227,9 @@ This loads the themes from the =ample-theme= packages and then sets =ample= as t
   (load-theme 'ample t t)
   (load-theme 'ample-flat t t)
   (load-theme 'ample-light t t)
-  (load-theme 'base16-eighties-dark t t)
+  (load-theme 'base16-railscasts t t)
   ;; and then emable one of them
-  (enable-theme 'base16-eighties-dark)
+  (enable-theme 'base16-railscasts)
 #+END_SRC
 
 I like to use the =ample= theme, in the standard version, but the flat and light versions are nice and I like to have them loaded in case I want to enable them later on.
