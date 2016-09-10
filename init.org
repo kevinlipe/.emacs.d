@@ -122,7 +122,6 @@ This is my Emacs configuration, written in Org mode, which is mostly so I can lo
 
    #+BEGIN_SRC emacs-lisp
    (let* ((packages '(
-           ample-theme          ; install the Ample themes
            base16-theme         ; Base16 color schemes for Emacs
 	   helm                 ; Incremental completion mode
 	   magit                ; control Git from Emacs
