@@ -225,7 +225,7 @@ These are the bits of the configuration which are only necessary on Mac OS X (wh
 
 ** Theme, Fonts, and Appearance
 
-This loads the themes from the =ample-theme= packages and then sets =ample= as the default theme.
+I like to use the Base16 themes. So far =base16-railscasts= is what I like, but it changes pretty regularly.
 
 #+BEGIN_SRC emacs-lisp
   ;; load all ample themes
