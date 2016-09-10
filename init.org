@@ -122,8 +122,9 @@ This is my Emacs configuration, written in Org mode, which is mostly so I can lo
 
    #+BEGIN_SRC emacs-lisp
    (let* ((packages '(
-;           ample-theme          ; install the Ample themes
+           ample-theme          ; install the Ample themes
            base16-theme         ; Base16 color schemes for Emacs
+	   helm                 ; Incremental completion mode
 	   magit                ; control Git from Emacs
 	   markdown-mode        ; Major mode for editing Markdown files
            org                  ; Outline-based notes manager
@@ -224,15 +225,13 @@ This loads the themes from the =ample-theme= packages and then sets =ample= as t
 
 #+BEGIN_SRC emacs-lisp
   ;; load all ample themes
-  (load-theme 'ample t t)
-  (load-theme 'ample-flat t t)
-  (load-theme 'ample-light t t)
+  (load-theme 'base16-solarized-light t t)
   (load-theme 'base16-railscasts t t)
   ;; and then emable one of them
   (enable-theme 'base16-railscasts)
 #+END_SRC
 
-I like to use the =ample= theme, in the standard version, but the flat and light versions are nice and I like to have them loaded in case I want to enable them later on.
+I like to use the dark theme most of the time (provided by =base16-railscasts= here, a particularly nice dark one that also looks good with all the Spaceline stuff) but when I want a light theme, I like the light version of Solarized, so I keep the Base16 version of it loaded.
 
 I like to use the Oxygen Mono font (from the KDE project) on OS X, but on Linux I like to use the Cousine font at a different size.
 
@@ -388,6 +387,36 @@ We want =csv-mode= to automatically load when we open a file with the .csv exten
 (autoload 'csv-mode "csv-mode"
    "Major mode for editing CSV files" t)
 (add-to-list 'auto-mode-alist '("\\.csv\\'" . csv-mode))
+#+END_SRC
+
+** Helm configuration
+
+Here's where we configure some stuff with helm (I don't know what I'm doing with this yet)
+
+#+BEGIN_SRC emacs-lisp
+(require 'helm-config)
+(helm-mode 1)
+#+END_SRC 
+
+We also want to use =helm= completions for M-x and for C-x C-f.
+
+#+BEGIN_SRC emacs-lisp
+
+  (global-set-key (kbd "M-x") 'helm-M-x)
+ 
+  ;; limit max number of matches displayed for speed
+  (setq helm-candidate-number-limit 100)
+ 
+  ;; ignore boring files like .o and .a
+  (setq helm-ff-skip-boring-files t) 
+
+  ;; replace locate with spotlight on Mac
+  (when (memq window-system '(mac ns))
+  (setq helm-locate-command "mdfind -name %s %s"))  
+
+  ;; use C-x f for helm finding, as opposed to normal C-x C-f
+  (global-set-key (kbd "C-x f") 'helm-for-files)
+
 #+END_SRC
 
 * License
