@@ -122,7 +122,8 @@ This is my Emacs configuration, written in Org mode, which is mostly so I can lo
 
    #+BEGIN_SRC emacs-lisp
    (let* ((packages '(
-           ample-theme          ; install the Ample themes
+;           ample-theme          ; install the Ample themes
+           base16-theme         ; Base16 color schemes for Emacs
 	   magit                ; control Git from Emacs
 	   markdown-mode        ; Major mode for editing Markdown files
            org                  ; Outline-based notes manager
@@ -130,9 +131,11 @@ This is my Emacs configuration, written in Org mode, which is mostly so I can lo
 	   ox-pandoc            ; org exporter for pandoc
            olivetti             ; Minor mode for a nice writing environment.
            pandoc-mode          ; Minor mode for interacting with pandoc via hydra
-
+	   powerline            ; Fancy/pretty modeline
 	   request              ; something URL related
 	   request-deferred     ; not really sure what this does
+	   spaceline            ; spacemacs-ish modeline thing
+	   spacemacs-theme      ; spacemacs color scheme
 	   wc-goal-mode         ; Set goal wordcounts (minor mode)
 	   with-editor          ; use Emacs as $EDITOR
 	   auto-compile         ; automatically compile Emacs Lisp libraries
@@ -224,8 +227,9 @@ This loads the themes from the =ample-theme= packages and then sets =ample= as t
   (load-theme 'ample t t)
   (load-theme 'ample-flat t t)
   (load-theme 'ample-light t t)
+  (load-theme 'base16-eighties-dark t t)
   ;; and then emable one of them
-  (enable-theme 'ample)
+  (enable-theme 'base16-eighties-dark)
 #+END_SRC
 
 I like to use the =ample= theme, in the standard version, but the flat and light versions are nice and I like to have them loaded in case I want to enable them later on.
@@ -246,6 +250,16 @@ We want to suppress the (kinda hideous) Emacs splash screen, and also hide the i
   ;; Hide the splash screen and the toolbar
    (setq inhibit-startup-message t)
    (tool-bar-mode -1)
+#+END_SRC
+
+** Modeline
+
+We want to make sure and use the =spaceline= package to draw us a pretty Spacemacs-like modeline, and use the =wave= separator instead of =arrow=.
+
+#+BEGIN_SRC emacs-lisp
+(require 'spaceline-config)
+(setq powerline-default-separator 'wave)
+(spaceline-spacemacs-theme)
 #+END_SRC
 
 ** custom-set-variables

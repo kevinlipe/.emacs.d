@@ -11,8 +11,8 @@ auto-save-list
 tramp
 .\#*
 
-# fancy autosave location
-autosaves/
+# files in the fancy autosave location
+autosaves/*
 
 # Org-mode
 .org-id-locations
