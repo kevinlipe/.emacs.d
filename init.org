@@ -267,16 +267,6 @@ We want to suppress the (kinda hideous) Emacs splash screen, and also hide the i
    (tool-bar-mode -1)
 #+END_SRC
 
-** Modeline
-
-We want to make sure and use the =spaceline= package to draw us a pretty Spacemacs-like modeline, and use the =wave= separator instead of =arrow=.
-
-#+BEGIN_SRC emacs-lisp
-(require 'spaceline-config)
-(setq powerline-default-separator 'wave)
-(spaceline-spacemacs-theme)
-#+END_SRC
-
 ** custom-set-variables
 
 This sets the default width of =olivetti-mode= since I'm not sure how else to do it.
@@ -289,6 +279,16 @@ This sets the default width of =olivetti-mode= since I'm not sure how else to do
 #+END_SRC
 
 * Mode-specific
+
+** Spaceline
+
+ We want to make sure and use the =spaceline= package to draw us a pretty Spacemacs-like modeline, and use the =wave= separator instead of =arrow=.
+
+ #+BEGIN_SRC emacs-lisp
+ (require 'spaceline-config)
+ (setq powerline-default-separator 'arrow)
+ (spaceline-spacemacs-theme)
+ #+END_SRC
 ** Markdown-mode
 
 This is specific stuff for =markdown-mode= that makes things better.
