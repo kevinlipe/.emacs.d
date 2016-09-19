@@ -161,7 +161,7 @@ This is my Emacs configuration, written in Org mode, which is mostly so I can lo
             (packages (remove-if 'package-installed-p packages)))
        (when packages
 	 (ignore-errors (package-refresh-contents)
-			(mapcar 'package-install packages)
+			(mapc 'package-install packages)
 			;; This package is only relevant for Mac OS X.
 			(when (memq window-system '(mac ns))
                           (package-install 'exec-path-from-shell)))))
@@ -302,7 +302,7 @@ This sets the default width of =olivetti-mode= since I'm not sure how else to do
    '(olivetti-body-width 72))
 #+END_SRC
 
-* Mode-specific
+* Mode-specific 
 
 ** Spaceline
 
@@ -428,7 +428,6 @@ We want =csv-mode= to automatically load when we open a file with the .csv exten
    "Major mode for editing CSV files" t)
 (add-to-list 'auto-mode-alist '("\\.csv\\'" . csv-mode))
 #+END_SRC
-
 * License
 
   My Emacs configurations written in Org mode. Format based on the Emacs configuration of Lars Tveito.
