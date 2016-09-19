@@ -449,8 +449,9 @@ We want =csv-mode= to automatically load when we open a file with the .csv exten
 Of course I want to use Evil for actually moving around in my files. I need to make sure it's loaded all the time by default:
 
 #+BEGIN_SRC emacs-lisp
-(require 'evil)
-(evil-mode 1)
+;; turn off Evil mode until I have time to learn it better
+;; (require 'evil)
+;; (evil-mode 1)
 #+END_SRC
 
 I know there's a lot more to Evil that I haven't explored yet, but I'm still figuring it out.
