@@ -123,7 +123,7 @@ This is my Emacs configuration, written in Org mode, which is mostly so I can lo
    #+BEGIN_SRC emacs-lisp
    (let* ((packages '(
            base16-theme         ; Base16 color schemes for Emacs
-	   helm                 ; Incremental completion mode
+;	   helm                 ; Incremental completion mode
 	   magit                ; control Git from Emacs
 	   markdown-mode        ; Major mode for editing Markdown files
            org                  ; Outline-based notes manager
@@ -189,13 +189,9 @@ Answering /yes/ and /no/ to each question from Emacs can be tedious, a
   Map the *Meta* key to also be invoked by C-x C-m (and C-c C-m) so that you don't have to reach all over the place for them.
 
 #+BEGIN_SRC emacs-lisp
-  ;; go on and load helm for this
-  (require 'helm-config)
-  (helm-mode 1)
-
-  (global-set-key (kbd "M-x") 'helm-M-x)
-  (global-set-key "\C-x\C-m" 'helm-M-x)
-  (global-set-key "\C-c\C-m" 'helm-M-x)
+;  (global-set-key (kbd "M-x") 'helm-M-x)
+  (global-set-key "\C-x\C-m" 'execute-extended-command)
+  (global-set-key "\C-c\C-m" 'execute-extended-command)
 #+END_SRC
 
 Map C-w to =backward-kill-word= for easier fixing of typos (which means less reaching for backspace) and then map =kill-region= to C-x C-k so that we can still get to it easily.
@@ -286,7 +282,7 @@ This sets the default width of =olivetti-mode= since I'm not sure how else to do
 
  #+BEGIN_SRC emacs-lisp
  (require 'spaceline-config)
- (setq powerline-default-separator 'arrow)
+ (setq powerline-default-separator 'wave)
  (spaceline-spacemacs-theme)
  #+END_SRC
 ** Markdown-mode
@@ -405,25 +401,6 @@ We want =csv-mode= to automatically load when we open a file with the .csv exten
 (add-to-list 'auto-mode-alist '("\\.csv\\'" . csv-mode))
 #+END_SRC
 
-** Helm configuration
-
-Here's where we configure some stuff with helm (I don't know what I'm doing with this yet)
-
-#+BEGIN_SRC emacs-lisp
-  ;; limit max number of matches displayed for speed
-  (setq helm-candidate-number-limit 100)
- 
-  ;; ignore boring files like .o and .a
-  (setq helm-ff-skip-boring-files t) 
-
-  ;; replace locate with spotlight on Mac
-  (when (memq window-system '(mac ns))
-  (setq helm-locate-command "mdfind -name %s %s"))  
-
-  ;; use C-x f for helm finding, as opposed to normal C-x C-f
-  (global-set-key (kbd "C-x f") 'helm-for-files)
-
-#+END_SRC
 
 * License
 
