@@ -102,8 +102,6 @@ This is my Emacs configuration, written in Org mode, which is mostly so I can lo
    Common Lisp, and comes in handy quite often, so we want to make sure it's
    loaded, along with =package=, which is obviously needed.
 
-*** Basic package config and repositories
-
     #+BEGIN_SRC emacs-lisp
     (require 'cl)
     (require 'package)
@@ -123,22 +121,14 @@ This is my Emacs configuration, written in Org mode, which is mostly so I can lo
 
      The configuration assumes that the packages listed below are installed. To ensure we install missing packages if they are missing.
 
-*** use-package
-
-#+BEGIN_SRC emacs-lisp
-;; Bootstrap `use-package'
-(unless (package-installed-p 'use-package) ; unless it is already installed
-  (package-refresh-contents) ; updage packages archive
-  (package-install 'use-package)) ; and install the most recent version of use-package
-
-(require 'use-package) ; guess what this one does too ?
-#+END_SRC
-
-*** legacy package configuration bits
-
      #+BEGIN_SRC emacs-lisp
      (let* ((packages '(
+             use-package          ; Lazy loading and requirements for Emacs packages
+	     evil                 ; Emacs Vi something Layer, which gives us text objects
              base16-theme         ; Base16 color schemes for Emacs
+	     ivy                  ; abo-abo completion framework
+	     counsel              ; find things in the filesystem using ivy
+	     swiper               ; find things in an Emacs buffer using ivy
 	     magit                ; control Git from Emacs
 	     markdown-mode        ; Major mode for editing Markdown files
              org                  ; Outline-based notes manager
@@ -165,6 +155,8 @@ This is my Emacs configuration, written in Org mode, which is mostly so I can lo
 			;; This package is only relevant for Mac OS X.
 			(when (memq window-system '(mac ns))
                           (package-install 'exec-path-from-shell)))))
+			  
+(require 'use-package) ;; make sure this is already loaded.
      #+END_SRC
 
 ** Defaults
@@ -240,6 +232,26 @@ I want to start creating new keybindings using =general= instead of this old-sch
   (general-define-key "C-w" 'backward-kill-word)   
   (general-define-key "\C-x\C-k" 'kill-region)
 )
+
+(general-define-key
+  ;; replace default keybindings
+  "C-s" 'swiper             ; search for string in current buffer
+  "M-x" 'counsel-M-x        ; replace default M-x with ivy backend
+  )
+
+(use-package which-key :ensure t)
+(general-define-key
+ :prefix "C-c"
+ ;; bind to simple key press
+  "b"	'ivy-switch-buffer  ; change buffer, chose using ivy
+  "/"   'counsel-git-grep   ; find string in git project
+  ;; bind to double key press
+  "f"   '(:ignore t :which-key "files")
+  "ff"  'counsel-find-file
+  "fr"	'counsel-recentf
+  "p"   '(:ignore t :which-key "project")
+  "pf"  '(counsel-git :which-key "find file in git dir")
+  )
 #+END_SRC
 
 ** Mac OS X
@@ -249,8 +261,6 @@ These are the bits of the configuration which are only necessary on Mac OS X (wh
    #+BEGIN_SRC emacs-lisp
 ;; code to run only if we're on an OS X system
 (when (memq window-system '(mac ns))
-  ;; use exec-path-from-shell for $PATH
-  (exec-path-from-shell-initialize) 
   ;; use GNU coreutils for dired (installed from Homebrew)
   (setq insert-directory-program (executable-find "gls")) 
   ;; use Command instead of Option as Meta
@@ -428,6 +438,17 @@ We want =csv-mode= to automatically load when we open a file with the .csv exten
    "Major mode for editing CSV files" t)
 (add-to-list 'auto-mode-alist '("\\.csv\\'" . csv-mode))
 #+END_SRC
+* Evil mode
+  
+Of course I want to use Evil for actually moving around in my files. I need to make sure it's loaded all the time by default:
+
+#+BEGIN_SRC emacs-lisp
+(require 'evil)
+(evil-mode 1)
+#+END_SRC
+
+I know there's a lot more to Evil that I haven't explored yet, but I'm still figuring it out.
+
 * License
 
   My Emacs configurations written in Org mode. Format based on the Emacs configuration of Lars Tveito.
