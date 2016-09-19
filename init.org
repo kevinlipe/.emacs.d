@@ -1,4 +1,4 @@
-#+TITLE: Emacs configuration file
+#+TITLE: Org-based Emacs configuration
 #+AUTHOR: Kevin Lipe
 #+BABEL: :cache yes
 #+PROPERTY: header-args :tangle yes
@@ -193,14 +193,20 @@ Answering /yes/ and /no/ to each question from Emacs can be tedious, a
 
 These are some other "sane" defaults:
 
+Silently delete excess backup versions of files:
 #+BEGIN_SRC emacs-lisp
+(setq delete-old-versions -1)
+#+END_SRC
 
-(setq delete-old-versions -1 )		; delete excess backup versions silently
-(setq vc-follow-symlinks t )				       ; don't ask for confirmation when opening symlinked file
-(setq coding-system-for-read 'utf-8 )	; use utf-8 by default
-(setq coding-system-for-write 'utf-8 )
-(setq sentence-end-double-space nil)	; sentence SHOULD end with only a point.
+Don't ask for confirmation when opening a symlinked file:
+#+BEGIN_SRC emacs-lisp
+(setq vc-follow-symlinks t)
+#+END_SRC
 
+Use UTF-8 for everything by default (if this isn't already happening)
+#+BEGIN_SRC emacs-lisp
+(setq coding-system-for-read 'utf-8)
+(setq coding-system-for-write 'utf-8)
 #+END_SRC
 
 ** Customized key bindings
