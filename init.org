@@ -1,4 +1,4 @@
-#+TITLE: Org-based Emacs configuration
+nteed#+TITLE: Org-based Emacs configuration
 #+AUTHOR: Kevin Lipe
 #+BABEL: :cache yes
 #+PROPERTY: header-args :tangle yes
@@ -136,7 +136,6 @@ This is my Emacs configuration, written in Org mode, which is mostly so I can lo
 	     ox-pandoc            ; org exporter for pandoc
              olivetti             ; Minor mode for a nice writing environment.
              pandoc-mode          ; Minor mode for interacting with pandoc via hydra
-	     powerline            ; Fancy/pretty modeline
 	     request              ; something URL related
 	     request-deferred     ; not really sure what this does
 	     spaceline            ; spacemacs-ish modeline thing
@@ -320,15 +319,6 @@ This sets the default width of =olivetti-mode= since I'm not sure how else to do
 
 * Mode-specific 
 
-** Spaceline
-
- We want to make sure and use the =spaceline= package to draw us a pretty Spacemacs-like modeline, and use the =wave= separator instead of =arrow=.
-
- #+BEGIN_SRC emacs-lisp
- (require 'spaceline-config)
- (setq powerline-default-separator 'wave)
- (spaceline-spacemacs-theme)
- #+END_SRC
 ** Markdown-mode
 
 This is specific stuff for =markdown-mode= that makes things better.
