@@ -295,7 +295,7 @@ I like to use the Oxygen Mono font (from the KDE project) on OS X, but on Linux 
   (cond ((member "Oxygen Mono" (font-family-list))
    (if (memq window-system '(mac ns))
     (set-face-attribute 'default nil :font "Oxygen Mono" :height 140) ;; on OS X
-    (set-face-attribute 'default nil :font "Hack" :height 110)) ;; on Linux
+    (set-face-attribute 'default nil :font "Hack" :height 105)) ;; on Linux
     ))
 #+END_SRC
 
