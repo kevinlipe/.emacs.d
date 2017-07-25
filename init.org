@@ -1,4 +1,4 @@
-nteed#+TITLE: Org-based Emacs configuration
+#+TITLE: Org-based Emacs configuration
 #+AUTHOR: Kevin Lipe
 #+BABEL: :cache yes
 #+PROPERTY: header-args :tangle yes
