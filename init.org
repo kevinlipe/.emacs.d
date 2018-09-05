@@ -276,14 +276,17 @@ These are the bits of the configuration which are only necessary on Mac OS X (wh
 
 ** Theme, Fonts, and Appearance
 
-I like to use the Base16 themes. So far =base16-railscasts= is what I like, but it changes pretty regularly.
+I like to use the Base16 themes. So far =base16-railscasts= is what I like, but it changes pretty regularly. In the terminal (including on Windows Subsystem for Linux), I like to use =wheatgrass= instead because it works much better there.
 
 #+BEGIN_SRC emacs-lisp
-  ;; load all ample themes
-  (load-theme 'base16-solarized-light t t)
+  (if (window-system) ;; window-system returns nil if there's not one
+  ;; load up the Base16 themes if we've got a window system
+  ((load-theme 'base16-solarized-light t t)
   (load-theme 'base16-railscasts t t)
   ;; and then enable one of them
-  (enable-theme 'base16-railscasts)
+  (enable-theme 'base16-railscasts))
+  ;; load up wheatgrass if we don't
+  (load-theme 'wheatgrass t nil))
 #+END_SRC
 
 I like to use the dark theme most of the time (provided by =base16-railscasts= here, a particularly nice dark one that also looks good with all the Spaceline stuff) but when I want a light theme, I like the light version of Solarized, so I keep the Base16 version of it loaded.
