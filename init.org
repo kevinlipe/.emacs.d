@@ -282,7 +282,7 @@ I like to use the Base16 themes. So far =base16-railscasts= is what I like, but 
   ;; load all ample themes
   (load-theme 'base16-solarized-light t t)
   (load-theme 'base16-railscasts t t)
-  ;; and then emable one of them
+  ;; and then enable one of them
   (enable-theme 'base16-railscasts)
 #+END_SRC
 
