@@ -363,7 +363,7 @@ I want to automatically use =visual-line-mode= if I'm in a mode that is derived 
 #+BEGIN_SRC emacs-lisp
   ;; use visual line mode while in anything derived from Text mode or Org
   (add-hook 'text-mode-hook 'visual-line-mode)
-  (add-hook 'org-mode-hook 'visual-line-mode)
+  (add-hook 'org-mode-hook (lambda () (visual-line-mode 1)))
 #+END_SRC
 
 ** Org mode
