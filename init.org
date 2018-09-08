@@ -276,32 +276,28 @@ These are the bits of the configuration which are only necessary on Mac OS X (wh
 
 ** Theme, Fonts, and Appearance
 
-I like to use the Base16 themes. So far =base16-railscasts= is what I like, but it changes pretty regularly. In the terminal (including on Windows Subsystem for Linux), I like to use =wheatgrass= instead because it works much better there.
+I like to use the Base16 themes. So far =base16-atelier-heath= is what I like, but it changes pretty regularly. In the terminal (including on Windows Subsystem for Linux), I like to use =wheatgrass= instead because it works much better there.
 
 #+BEGIN_SRC emacs-lisp
-  (if (window-system) ;; window-system returns nil if there's not one
-  ;; load up the Base16 themes if we've got a window system
-  ((load-theme 'base16-solarized-light t t)
-  (load-theme 'base16-railscasts t t)
-  ;; and then enable one of them
-  (enable-theme 'base16-railscasts))
-  ;; load up wheatgrass if we don't
-  (load-theme 'wheatgrass t nil))
+(if (window-system) (load-theme 'base16-atelier-heath t nil) ;; (window-system) returns nil if emacs isn't running in one.
+      (load-theme 'wheatgrass t nil)) ;; load wheatgrass if we can't use the base16 theme.
 #+END_SRC
 
-I like to use the dark theme most of the time (provided by =base16-railscasts= here, a particularly nice dark one that also looks good with all the Spaceline stuff) but when I want a light theme, I like the light version of Solarized, so I keep the Base16 version of it loaded.
-
-I like to use the Oxygen Mono font (from the KDE project) on OS X, but on Linux I like to use the Cousine font at a different size.
+I like to use the dark theme most of the time but when I want a light theme, I like the light version of the same theme, so I keep the Base16 version of it loaded.
 
 #+BEGIN_SRC emacs-lisp
-  (cond ((member "Oxygen Mono" (font-family-list))
+(when (window-system) (load-theme 'base16-atelier-heath-light t t)) ;; load a light theme but don't enable it if there's a window system.
+#+END_SRC
+
+I like to use the Fira Code font on OS X, but on Linux I like to use IBM Plex Mono font at a different size.
+
+#+BEGIN_SRC emacs-lisp
    (if (memq window-system '(mac ns))
     (set-face-attribute 'default nil :font "Fira Code" :height 150) ;; on OS X
-    (set-face-attribute 'default nil :font "Hack" :height 105)) ;; on Linux
-    ))
+    (set-face-attribute 'default nil :font "IBM Plex Mono" :height 110)) ;; on Linux
 #+END_SRC
 
-We want to suppress the (kinda hideous) Emacs splash screen, and also hide the icon-based toolbar (but not the menubar).
+We want to suppress the (hideous) Emacs splash screen, and also hide the icon-based toolbar, but not the menubar.
 
 #+BEGIN_SRC emacs-lisp
   ;; Hide the splash screen and the toolbar
