@@ -106,7 +106,6 @@ This is my Emacs configuration, written in Org mode, which is mostly so I can lo
     (require 'cl)
     (require 'package)
     (setq package-enable-at-startup nil) ;; don't load packages before startup
-    (package-initialize)
     #+END_SRC
 
      Packages can be fetched from different mirrors, [[http://melpa.milkbox.net/#/][melpa]] is the largest
