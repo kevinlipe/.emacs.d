@@ -292,7 +292,7 @@ I like to use the Fira Code font on OS X, but on Linux I like to use IBM Plex Mo
 
 #+BEGIN_SRC emacs-lisp
    (if (memq window-system '(mac ns))
-    (set-face-attribute 'default nil :font "Fira Code" :height 150) ;; on OS X
+    (set-face-attribute 'default nil :font "IBM Plex Mono" :height 155) ;; on OS X
     (set-face-attribute 'default nil :font "IBM Plex Mono" :height 110)) ;; on Linux
 #+END_SRC
 
@@ -349,7 +349,7 @@ Set up a special keyboard shortcut (that only works on the Mac, but for some rea
    "run Marked on the current file and revert the buffer"
    (interactive)
    (shell-command
-    (format "open -a ~/Applications/Marked\\ 2.app %s"
+    (format "open -a /Applications/Marked\\ 2.app %s"
             (shell-quote-argument (buffer-file-name))))
    )
  (global-set-key "\C-cm" 'markdown-preview-file)
