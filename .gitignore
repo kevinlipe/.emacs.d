@@ -53,3 +53,6 @@ session.*
 
 # helm leftovers
 recentf
+
+# server directory
+server/*
