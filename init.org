@@ -410,11 +410,6 @@ Automatically load Org for =org= files. Also, use C-c a to automatically pull up
 
 #+BEGIN_SRC emacs-lisp
 
- ;;make sure we have the latest org
-  (use-package org
-    ;;:pin org
-    :ensure org-plus-contrib)
-
   ;; org mode stuff, including C-c a for agenda
   (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
   (add-to-list 'auto-mode-alist '("\\.org$" . org-mode))
