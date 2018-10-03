@@ -124,7 +124,6 @@ This is my Emacs configuration, written in Org mode, which is mostly so I can lo
      #+BEGIN_SRC emacs-lisp
      (let* ((packages '(
              use-package          ; Lazy loading and requirements for Emacs packages
-	     evil                 ; Emacs Vi something Layer, which gives us text objects
              base16-theme         ; Base16 color schemes for Emacs
 	     ivy                  ; abo-abo completion framework
 	     counsel              ; find things in the filesystem using ivy
@@ -440,18 +439,6 @@ We want =csv-mode= to automatically load when we open a file with the .csv exten
    "Major mode for editing CSV files" t)
 (add-to-list 'auto-mode-alist '("\\.csv\\'" . csv-mode))
 #+END_SRC
-* Evil mode
-  
-Of course I want to use Evil for actually moving around in my files. I need to make sure it's loaded all the time by default:
-
-#+BEGIN_SRC emacs-lisp
-;; turn off Evil mode until I have time to learn it better
-;; (require 'evil)
-;; (evil-mode 1)
-#+END_SRC
-
-I know there's a lot more to Evil that I haven't explored yet, but I'm still figuring it out.
-
 * License
 
   My Emacs configurations written in Org mode. Format based on the Emacs configuration of Lars Tveito.
