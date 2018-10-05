@@ -317,7 +317,7 @@ This sets the default width of =olivetti-mode= since I'm not sure how else to do
 
 * Windows configurations
 
-Windows being what it is, there are configurations we need to make to make Emacs (the emax version) behave in a Windows environment.
+Windows being what it is, there are configurations we need to make to make Emacs (the emax version, here: https://github.com/m-parashar/emax64) behave in a Windows environment.
 
 We need to set all the right root directories, and then make sure =emax= knows that we're supposed to be using UTF-8 everywhere:
 
@@ -341,16 +341,19 @@ We need to set all the right root directories, and then make sure =emax= knows t
   (setq exec-path (cons emax-mingw64 exec-path))
   (setenv "PATH" (concat emax-mingw64 ";" (getenv "PATH")))
 
-  (setenv "PATH" (concat "C:\\msys64\\usr\\bin;C:\\msys64\\mingw64\\bin;" (getenv "PATH")))
+  (setenv "PATH" (concat "C:\\msys64\\usr\\bin;C:\\msys64\\mingw64\\bin;" (getenv "PATH"))))
+#+END_SRC
 
+The other important thing, since we're on Windows, where things get weird sometimes, is to make sure Emacs always knows everything should be UTF-8 instead of some weird Windows thing.
+
+#+BEGIN_SRC emacs-lisp
+(when (string-equal system-type "windows-nt") ; test whether we're on Windows
   ;; make sure everything is expecting UTF-8
   (set-language-environment 'utf-8)
   (setq locale-coding-system 'utf-8)
   (set-default-coding-systems 'utf-8)
   (set-terminal-coding-system 'utf-8)
-  (prefer-coding-system 'utf-8)
-)
-
+  (prefer-coding-system 'utf-8))
 #+END_SRC
 
 * Mode-specific 
