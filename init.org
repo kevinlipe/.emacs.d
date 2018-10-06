@@ -226,20 +226,14 @@ I want to start creating new keybindings using =general= instead of this old-sch
 #+BEGIN_SRC emacs-lisp
 (use-package general :ensure t
   :config 
-  (general-define-key "\C-x\C-m" 'execute-extended-command) ; don't reach for Meta, do this instead! 
-  (general-define-key "\C-c\C-m" 'execute-extended-command) ; same as above, if you miss X key
-  (general-define-key "C-w" 'backward-kill-word)   
-  (general-define-key "\C-x\C-k" 'kill-region)
-)
+  (general-define-key 
+  "C-w" 'backward-kill-word 
+  "\C-x\C-k" 'kill-region
 
-(general-define-key
   ;; replace default keybindings
   "C-s" 'swiper             ; search for string in current buffer
   "M-x" 'counsel-M-x        ; replace default M-x with ivy backend
-  )
 
-(use-package which-key :ensure t)
-(general-define-key
  :prefix "C-c"
  ;; bind to simple key press
   "b"	'ivy-switch-buffer  ; change buffer, chose using ivy
@@ -250,7 +244,9 @@ I want to start creating new keybindings using =general= instead of this old-sch
   "fr"	'counsel-recentf
   "p"   '(:ignore t :which-key "project")
   "pf"  '(counsel-git :which-key "find file in git dir")
-  )
+  ))
+
+(use-package which-key :ensure t)
 #+END_SRC
 
 ** Mac OS X
