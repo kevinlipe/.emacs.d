@@ -227,12 +227,14 @@ I want to start creating new keybindings using =general= instead of this old-sch
   :config 
   (general-define-key 
   "C-w" 'backward-kill-word 
-  "\C-x\C-k" 'kill-region
+  "\C-x\C-k" 'kill-region)
 
+  (general-define-key
   ;; replace default keybindings
   "C-s" 'swiper             ; search for string in current buffer
-  "M-x" 'counsel-M-x        ; replace default M-x with ivy backend
+  "M-x" 'counsel-M-x)        ; replace default M-x with ivy backend
 
+(general-define-key
  :prefix "C-c"
  ;; bind to simple key press
   "b"	'ivy-switch-buffer  ; change buffer, chose using ivy
