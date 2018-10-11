@@ -7,8 +7,6 @@
 
 This is my Emacs configuration, written in Org mode, which is mostly so I can look through it and remember how all of this works. Also, if it's going to be public, it might as well be well-documented. A lot of this setup (at least in spirit, and literally in the case of the tangle-and-compile bits) is borrowed from [[https://github.com/larstvei/dot-emacs][Lars Tveito's Emacs/Org setup]].
 
-* Configurations
-  
 ** Meta
 
    All changes to the configuration should be done in =init.org=, *not* in
@@ -94,7 +92,7 @@ This is my Emacs configuration, written in Org mode, which is mostly so I can lo
           (load-file private-file)))))
    #+END_SRC
  
-** Packages
+* Packages
 
    Managing extensions for Emacs is simplified using =package= which is
    built in to Emacs 24 and newer. To load downloaded packages we need to
@@ -106,7 +104,7 @@ This is my Emacs configuration, written in Org mode, which is mostly so I can lo
     (require 'cl)
     (require 'package)
     (setq package-enable-at-startup nil) ;; don't load packages before startup
-    (package-initialize)
+    (when (version< emacs-version "27") (package-initialize)) ; package-initialize is deprecated in Emacs 27
     #+END_SRC
 
      Packages can be fetched from different mirrors, [[http://melpa.milkbox.net/#/][melpa]] is the largest
@@ -157,6 +155,7 @@ This is my Emacs configuration, written in Org mode, which is mostly so I can lo
 (require 'use-package) ;; make sure this is already loaded.
      #+END_SRC
 
+* Configurations
 ** Defaults
 
 Always start the server so that =emacsclient= works from the command line.
@@ -165,29 +164,27 @@ Always start the server so that =emacsclient= works from the command line.
 (server-start) ;; start the server on startup
 #+END_SRC
 
-Answering /yes/ and /no/ to each question from Emacs can be tedious, a
-   single /y/ or /n/ will suffice.
+Answering /yes/ and /no/ to each question from Emacs can be tedious, a single /y/ or /n/ will suffice.
 
-   #+BEGIN_SRC emacs-lisp
-   (fset 'yes-or-no-p 'y-or-n-p)
-   #+END_SRC
+#+BEGIN_SRC emacs-lisp
+(fset 'yes-or-no-p 'y-or-n-p)
+#+END_SRC
 
-   To avoid file system clutter we put all auto saved files in a single
-   directory.
+To avoid file system clutter we put all auto saved files in a single directory.
 
-   #+BEGIN_SRC emacs-lisp
-   (defvar emacs-autosave-directory
-     (concat user-emacs-directory "autosaves/")
-     "This variable dictates where to put auto saves. It is set to a
-     directory called autosaves located wherever your .emacs.d/ is
-     located.")
+#+BEGIN_SRC emacs-lisp
+(defvar emacs-autosave-directory
+  (concat user-emacs-directory "autosaves/")
+  "This variable dictates where to put auto saves. It is set to a
+  directory called autosaves located wherever your .emacs.d/ is
+  located.")
 
-   ;; Sets all files to be backed up and auto saved in a single directory.
-   (setq backup-directory-alist
-         `((".*" . ,emacs-autosave-directory))
-         auto-save-file-name-transforms
-         `((".*" ,emacs-autosave-directory t)))
-   #+END_SRC
+ ;; Sets all files to be backed up and auto saved in a single directory.
+ (setq backup-directory-alist
+   `((".*" . ,emacs-autosave-directory))
+   auto-save-file-name-transforms
+   `((".*" ,emacs-autosave-directory t)))
+ #+END_SRC
 
 These are some other "sane" defaults:
 
@@ -212,8 +209,6 @@ Use UTF-8 for everything by default (if this isn't already happening)
 First things first, I want the Escape key to quit whatever I'm doing in the minibuffer.
 
 #+BEGIN_SRC emacs-lisp
-;;(setq normal-escape-enabled t)
-
 ;; make Esc quit whatever's happening in the minibuffer
 ; Map escape to cancel (like C-g)...
 (define-key isearch-mode-map [escape] 'isearch-abort)   ;; isearch
@@ -231,19 +226,15 @@ I want to start creating new keybindings using =general= instead of this old-sch
 #+BEGIN_SRC emacs-lisp
 (use-package general :ensure t
   :config 
-  (general-define-key "\C-x\C-m" 'execute-extended-command) ; don't reach for Meta, do this instead! 
-  (general-define-key "\C-c\C-m" 'execute-extended-command) ; same as above, if you miss X key
-  (general-define-key "C-w" 'backward-kill-word)   
-  (general-define-key "\C-x\C-k" 'kill-region)
-)
+  (general-define-key 
+  "C-w" 'backward-kill-word 
+  "\C-x\C-k" 'kill-region)
 
-(general-define-key
+  (general-define-key
   ;; replace default keybindings
   "C-s" 'swiper             ; search for string in current buffer
-  "M-x" 'counsel-M-x        ; replace default M-x with ivy backend
-  )
+  "M-x" 'counsel-M-x)        ; replace default M-x with ivy backend
 
-(use-package which-key :ensure t)
 (general-define-key
  :prefix "C-c"
  ;; bind to simple key press
@@ -255,7 +246,9 @@ I want to start creating new keybindings using =general= instead of this old-sch
   "fr"	'counsel-recentf
   "p"   '(:ignore t :which-key "project")
   "pf"  '(counsel-git :which-key "find file in git dir")
-  )
+  ))
+
+(use-package which-key :ensure t)
 #+END_SRC
 
 ** Mac OS X
@@ -317,49 +310,7 @@ This sets the default width of =olivetti-mode= since I'm not sure how else to do
    '(olivetti-body-width 72))
 #+END_SRC
 
-* Windows configurations
-
-Windows being what it is, there are configurations we need to make to make Emacs (the emax version, here: https://github.com/m-parashar/emax64) behave in a Windows environment.
-
-We need to set all the right root directories, and then make sure =emax= knows that we're supposed to be using UTF-8 everywhere:
-
-#+BEGIN_SRC emacs-lisp
-(when (string-equal system-type "windows-nt") ; test whether we're on Windows
-
-  ;; set variables for all of the various paths
-  (defvar emax-root (concat (expand-file-name "~") "/emax"))
-  (defvar emax-bin (concat emax-root "/bin"))
-  (defvar emax-bin64 (concat emax-root "/bin64"))
-  (defvar emax-mingw64 (concat emax-root "/mingw64/bin"))
-  (defvar emax-lisp (concat emax-root "/lisp"))
-
-  ;; add the various paths to the $PATH (get it?)
-  (setq exec-path (cons emax-bin exec-path))
-  (setenv "PATH" (concat emax-bin ";" (getenv "PATH")))
-
-  (setq exec-path (cons emax-bin64 exec-path))
-  (setenv "PATH" (concat emax-bin64 ";" (getenv "PATH")))
-
-  (setq exec-path (cons emax-mingw64 exec-path))
-  (setenv "PATH" (concat emax-mingw64 ";" (getenv "PATH")))
-
-  (setenv "PATH" (concat "C:\\msys64\\usr\\bin;C:\\msys64\\mingw64\\bin;" (getenv "PATH"))))
-#+END_SRC
-
-The other important thing, since we're on Windows, where things get weird sometimes, is to make sure Emacs always knows everything should be UTF-8 instead of some weird Windows thing.
-
-#+BEGIN_SRC emacs-lisp
-(when (string-equal system-type "windows-nt") ; test whether we're on Windows
-  ;; make sure everything is expecting UTF-8
-  (set-language-environment 'utf-8)
-  (setq locale-coding-system 'utf-8)
-  (set-default-coding-systems 'utf-8)
-  (set-terminal-coding-system 'utf-8)
-  (prefer-coding-system 'utf-8))
-#+END_SRC
-
 * Mode-specific 
-
 ** Markdown-mode
 
 This is specific stuff for =markdown-mode= that makes things better.
@@ -409,39 +360,39 @@ I want to automatically use =visual-line-mode= if I'm in a mode that is derived 
 #+END_SRC
 
 ** Org mode
-
-Automatically load Org for =org= files. Also, use C-c a to automatically pull up the Org agenda. Also, use =org-bullets= for fancy UTF-8 bullets instead of ugly ones in Org mode.
+*** File associations
+Automatically load Org for =org= files. 
 
 #+BEGIN_SRC emacs-lisp
 
-  ;; org mode stuff, including C-c a for agenda
-  (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
-  (add-to-list 'auto-mode-alist '("\\.org$" . org-mode))
-  (define-key global-map "\C-cl" 'org-store-link)
-  (define-key global-map "\C-ca" 'org-agenda)
-  (setq org-log-done t)
-
-;; Set to the location of your Org files on your local system
-;; (setq org-directory "~/org")
-;; Set to the name of the file where new notes will be stored
-;; (setq org-mobile-inbox-for-pull "~/org/flagged.org")
-;; Set to <your Dropbox root directory>/MobileOrg.
-;; (setq org-mobile-directory "~/Dropbox/Apps/MobileOrg")
+(use-package org
+  :mode ("\\.org$" . org-mode)
+  :config (setq org-log-done t)) ; don't remember what this does
 
 #+END_SRC
 
-** ox-pandoc
+*** org-bullets
 
-Set everything to be a standalone =pandoc= export except for HTML output, which is to be copied and pasted into a blog editor anyway.
+ Make sure the fancy =org-bullets= is installed for fancy UTF-8 bullets in Org.
 
-#+BEGIN_SRC emacs-lisp
-  ;; default options for all output formats
-  (setq org-pandoc-options '((standalone . t)))
-  ;; cancel above settings only for 'html' format
-  (setq org-pandoc-options-for-html '((standalone . nil)))
-  ;; special settings for latex-pdf exporter
-  (setq org-pandoc-options-for-latex-pdf '((latex-engine . "xelatex")))
-#+END_SRC
+ #+BEGIN_SRC emacs-lisp
+ (use-package org-bullets
+   :ensure t
+   :hook (org-mode . org-bullets-mode))
+ #+END_SRC
+
+*** ox-pandoc
+
+ Set everything to be a standalone =pandoc= export except for HTML output, which is to be copied and pasted into a blog editor anyway. =xelatex= is installed, so we want to use that for PDF output from Org mode.
+
+ #+BEGIN_SRC emacs-lisp
+   ;; default options for all output formats
+   (setq org-pandoc-options '((standalone . t)))
+   ;; cancel above settings only for 'html' format
+   (setq org-pandoc-options-for-html '((standalone . nil)))
+   ;; special settings for latex-pdf exporter
+   (setq org-pandoc-options-for-latex-pdf '((latex-engine . "xelatex")))
+ #+END_SRC
 
 ** nXML mode
 
@@ -478,10 +429,50 @@ Set the display for =wc-goal-mode= in the modeline.
 We want =csv-mode= to automatically load when we open a file with the .csv extension.
 
 #+BEGIN_SRC emacs-lisp
-;; autoload these filetypes as csv-mode
-(autoload 'csv-mode "csv-mode"
-   "Major mode for editing CSV files" t)
-(add-to-list 'auto-mode-alist '("\\.csv\\'" . csv-mode))
+;; use use-package to associate .csv files with csv-mode
+(use-package csv-mode
+  :mode ("\\.csv\\'" . csv-mode))
+#+END_SRC
+
+* Windows configurations
+
+Windows being what it is, there are configurations we need to make to make Emacs (the emax version, here: https://github.com/m-parashar/emax64) behave in a Windows environment.
+
+We need to set all the right root directories, and then make sure =emax= knows that we're supposed to be using UTF-8 everywhere:
+
+#+BEGIN_SRC emacs-lisp
+(when (string-equal system-type "windows-nt") ; test whether we're on Windows
+
+  ;; set variables for all of the various paths
+  (defvar emax-root (concat (expand-file-name "~") "/emax"))
+  (defvar emax-bin (concat emax-root "/bin"))
+  (defvar emax-bin64 (concat emax-root "/bin64"))
+  (defvar emax-mingw64 (concat emax-root "/mingw64/bin"))
+  (defvar emax-lisp (concat emax-root "/lisp"))
+
+  ;; add the various paths to the $PATH (get it?)
+  (setq exec-path (cons emax-bin exec-path))
+  (setenv "PATH" (concat emax-bin ";" (getenv "PATH")))
+
+  (setq exec-path (cons emax-bin64 exec-path))
+  (setenv "PATH" (concat emax-bin64 ";" (getenv "PATH")))
+
+  (setq exec-path (cons emax-mingw64 exec-path))
+  (setenv "PATH" (concat emax-mingw64 ";" (getenv "PATH")))
+
+  (setenv "PATH" (concat "C:\\msys64\\usr\\bin;C:\\msys64\\mingw64\\bin;" (getenv "PATH"))))
+#+END_SRC
+
+The other important thing, since we're on Windows, where things get weird sometimes, is to make sure Emacs always knows everything should be UTF-8 instead of some weird Windows thing.
+
+#+BEGIN_SRC emacs-lisp
+(when (string-equal system-type "windows-nt") ; test whether we're on Windows
+  ;; make sure everything is expecting UTF-8
+  (set-language-environment 'utf-8)
+  (setq locale-coding-system 'utf-8)
+  (set-default-coding-systems 'utf-8)
+  (set-terminal-coding-system 'utf-8)
+  (prefer-coding-system 'utf-8))
 #+END_SRC
 * License
 
