@@ -268,24 +268,24 @@ These are the bits of the configuration which are only necessary on Mac OS X (wh
 
 ** Theme, Fonts, and Appearance
 
-I like to use the Base16 themes. So far =base16-atelier-heath= is what I like, but it changes pretty regularly. In the terminal (including on Windows Subsystem for Linux), I like to use =wheatgrass= instead because it works much better there.
+I like to use the Base16 themes. So far =base16-ashes= is what I like, but it changes pretty regularly. In the terminal (including on Windows Subsystem for Linux), I like to use =wheatgrass= instead because it works much better there.
 
 #+BEGIN_SRC emacs-lisp
 (if (window-system) (load-theme 'base16-ashes t nil) ;; (window-system) returns nil if emacs isn't running in one.
       (load-theme 'wheatgrass t nil)) ;; load wheatgrass if we can't use the base16 theme.
 #+END_SRC
 
-I like to use the dark theme most of the time but when I want a light theme, I like the light version of the same theme, so I keep the Base16 version of it loaded.
+I like to use the dark theme most of the time but when I want a light theme, I like the light version of =base16-atelier-dune=, so I keep it loaded.
 
 #+BEGIN_SRC emacs-lisp
 (when (window-system) (load-theme 'base16-atelier-dune-light t t)) ;; load a light theme but don't enable it if there's a window system.
 #+END_SRC
 
-I like to use the Fira Code font on OS X, but on Linux I like to use IBM Plex Mono font at a different size.
+I like to use IBM Plex Mono as my coding font across all platforms, but it needs to be a different size depending on what OS I'm on because every one is special.
 
 #+BEGIN_SRC emacs-lisp
    (if (memq window-system '(mac ns))
-    (set-face-attribute 'default nil :font "IBM Plex Mono" :height 155) ;; on OS X
+    (set-face-attribute 'default nil :font "IBM Plex Mono" :height 165) ;; on OS X
     (if (string-equal system-type "windows-nt") ;; if not Mac, check for Windows
       (set-face-attribute 'default nil :font "IBM Plex Mono" :height 120) ;; on Win
       (set-face-attribute 'default nil :font "IBM Plex Mono" :height 110))) ;; on Linux
