@@ -136,13 +136,13 @@ This is my Emacs configuration, written in Org mode, which is mostly so I can lo
 	     request              ; something URL related
 	     request-deferred     ; not really sure what this does
 	     spaceline            ; spacemacs-ish modeline thing
-	     spacemacs-theme      ; spacemacs color scheme
 	     wc-goal-mode         ; Set goal wordcounts (minor mode)
 	     with-editor          ; use Emacs as $EDITOR
 	     auto-compile         ; automatically compile Emacs Lisp libraries
              expand-region        ; Increase selected region by semantic units
 	     csv-mode             ; For working with .csv files intelligently
-             try))                ; Try out Emacs packages
+             racket               ; Major mode for Racket programming
+	     try))                ; Try out Emacs packages
             ;; Remove all packages already installed
             (packages (remove-if 'package-installed-p packages)))
        (when packages
