@@ -436,7 +436,7 @@ We want =csv-mode= to automatically load when we open a file with the .csv exten
 
 * Windows configurations
 
-Windows being what it is, there are configurations we need to make to make Emacs (the emax version, here: https://github.com/m-parashar/emax64) behave in a Windows environment.
+Windows being what it is, there are configurations we need to make to make Emacs ([[https://github.com/m-parashar/emax64][the emax distribution]] for W64) behave in a Windows environment.
 
 ** Root directories
 
@@ -497,7 +497,7 @@ There's an issue with garbage collection on Windows as of Emacs 25 that can caus
 
   My Emacs configurations written in Org mode. Format based on the Emacs configuration of Lars Tveito.
 
-  Copyright (c) 2015 - 2016 Kevin Lipe
+  Copyright (c) 2015 - 2018 Kevin Lipe
   Copyright (c) 2013 - 2015 Lars Tveito
 
   This program is free software: you can redistribute it and/or modify
