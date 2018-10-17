@@ -438,54 +438,60 @@ We want =csv-mode= to automatically load when we open a file with the .csv exten
 
 Windows being what it is, there are configurations we need to make to make Emacs (the emax version, here: https://github.com/m-parashar/emax64) behave in a Windows environment.
 
-We need to set all the right root directories, and then make sure =emax= knows that we're supposed to be using UTF-8 everywhere:
+** Root directories
 
-#+BEGIN_SRC emacs-lisp
-(when (string-equal system-type "windows-nt") ; test whether we're on Windows
+ We need to set all the right root directories, and then make sure =emax= knows that we're supposed to be using UTF-8 everywhere:
 
-  ;; set variables for all of the various paths
-  (defvar emax-root (concat (expand-file-name "~") "/emax"))
-  (defvar emax-bin (concat emax-root "/bin"))
-  (defvar emax-bin64 (concat emax-root "/bin64"))
-  (defvar emax-mingw64 (concat emax-root "/mingw64/bin"))
-  (defvar emax-lisp (concat emax-root "/lisp"))
+ #+BEGIN_SRC emacs-lisp
+ (when (string-equal system-type "windows-nt") ; test whether we're on Windows
 
-  ;; add the various paths to the $PATH (get it?)
-  (setq exec-path (cons emax-bin exec-path))
-  (setenv "PATH" (concat emax-bin ";" (getenv "PATH")))
+   ;; set variables for all of the various paths
+   (defvar emax-root (concat (expand-file-name "~") "/emax"))
+   (defvar emax-bin (concat emax-root "/bin"))
+   (defvar emax-bin64 (concat emax-root "/bin64"))
+   (defvar emax-mingw64 (concat emax-root "/mingw64/bin"))
+   (defvar emax-lisp (concat emax-root "/lisp"))
 
-  (setq exec-path (cons emax-bin64 exec-path))
-  (setenv "PATH" (concat emax-bin64 ";" (getenv "PATH")))
+   ;; add the various paths to the $PATH (get it?)
+   (setq exec-path (cons emax-bin exec-path))
+   (setenv "PATH" (concat emax-bin ";" (getenv "PATH")))
 
-  (setq exec-path (cons emax-mingw64 exec-path))
-  (setenv "PATH" (concat emax-mingw64 ";" (getenv "PATH")))
+   (setq exec-path (cons emax-bin64 exec-path))
+   (setenv "PATH" (concat emax-bin64 ";" (getenv "PATH")))
 
-  (setenv "PATH" (concat "C:\\msys64\\usr\\bin;C:\\msys64\\mingw64\\bin;" (getenv "PATH"))))
-#+END_SRC
+   (setq exec-path (cons emax-mingw64 exec-path))
+   (setenv "PATH" (concat emax-mingw64 ";" (getenv "PATH")))
 
-The other important thing, since we're on Windows, where things get weird sometimes, is to make sure Emacs always knows everything should be UTF-8 instead of some weird Windows thing.
+   (setenv "PATH" (concat "C:\\msys64\\usr\\bin;C:\\msys64\\mingw64\\bin;" (getenv "PATH"))))
+ #+END_SRC
 
-#+BEGIN_SRC emacs-lisp
-(when (string-equal system-type "windows-nt") ; test whether we're on Windows
-  ;; make sure everything is expecting UTF-8
-  (set-language-environment 'utf-8)
-  (setq locale-coding-system 'utf-8)
-  (set-default-coding-systems 'utf-8)
-  (set-terminal-coding-system 'utf-8)
-  (prefer-coding-system 'utf-8))
-#+END_SRC
+ The other important thing, since we're on Windows, where things get weird sometimes, is to make sure Emacs always knows everything should be UTF-8 instead of some weird Windows thing.
 
-notes about GC fix go here
+ #+BEGIN_SRC emacs-lisp
+ (when (string-equal system-type "windows-nt") ; test whether we're on Windows
+   ;; make sure everything is expecting UTF-8
+   (set-language-environment 'utf-8)
+   (setq locale-coding-system 'utf-8)
+   (set-default-coding-systems 'utf-8)
+   (set-terminal-coding-system 'utf-8)
+   (prefer-coding-system 'utf-8))
+ #+END_SRC
 
-#+BEGIN_SRC emacs-lisp
+** Garbage collection fixes
 
-(when (string-equal system-type "windows-nt") ; test whether we're on Windows
-  (setq gc-cons-threshold (* 511 1024 1024)) ; put off GC until 500MB of allocation
-  (setq gc-cons-percentage 0.5)
-  (run-with-idle-timer 5 t #'garbage-collect) ; GC only when idle for 5s
-  (setq garbage-collection-messages t))
+There's an issue with garbage collection on Windows as of Emacs 25 that can cause =org-mode= and =visual-line-mode= to run very slowly when moving from line to line. This is a hack to make the GC run less often on Windows than it would by default (not until 500MB have been allocated, and then only when Emacs is idle for 5s).
 
-#+END_SRC
+(Credit for this fix goes to reddit user [[https://www.reddit.com/r/emacs/comments/55ork0/is_emacs_251_noticeably_slower_than_245_on_windows/d8cmm7v/][/u/DrSpotter]].)
+
+ #+BEGIN_SRC emacs-lisp
+
+ (when (string-equal system-type "windows-nt") ; test whether we're on Windows
+   (setq gc-cons-threshold (* 511 1024 1024)) ; put off GC until 500MB of allocation
+   (setq gc-cons-percentage 0.5)
+   (run-with-idle-timer 5 t #'garbage-collect) ; GC only when idle for 5s
+   (setq garbage-collection-messages t))
+
+ #+END_SRC
 
 * License
 
