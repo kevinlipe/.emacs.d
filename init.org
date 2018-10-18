@@ -377,7 +377,6 @@ Automatically load Org for =org= files.
 
  #+BEGIN_SRC emacs-lisp
  (use-package org-bullets
-   :ensure t
    :hook (org-mode . org-bullets-mode))
  #+END_SRC
 
