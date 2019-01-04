@@ -1,6 +1,6 @@
 #+TITLE: Org-based Emacs configuration
 #+AUTHOR: Kevin Lipe
-#+BABEL: :cache yes
+*m#+BABEL: :cache yes
 #+PROPERTY: header-args :tangle yes
    
 * About
@@ -287,7 +287,7 @@ I like to use IBM Plex Mono as my coding font across all platforms, but it needs
    (if (memq window-system '(mac ns))
     (set-face-attribute 'default nil :font "IBM Plex Mono" :height 165) ;; on OS X
     (if (string-equal system-type "windows-nt") ;; if not Mac, check for Windows
-      (set-face-attribute 'default nil :font "IBM Plex Mono" :height 120) ;; on Win
+      (set-face-attribute 'default nil :font "Consolas" :height 110) ;; on Windows
       (set-face-attribute 'default nil :font "IBM Plex Mono" :height 110))) ;; on Linux
 #+END_SRC
 
