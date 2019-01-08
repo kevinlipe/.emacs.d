@@ -2,7 +2,7 @@
 #+AUTHOR: Kevin Lipe
 #+BABEL: :cache yes
 #+PROPERTY: header-args :tangle yes
-   
+
 * About
 
 This is my Emacs configuration, written in Org mode, which is mostly so I can look through it and remember how all of this works. Also, if it's going to be public, it might as well be well-documented. A lot of this setup (at least in spirit, and literally in the case of the tangle-and-compile bits) is borrowed from [[https://github.com/larstvei/dot-emacs][Lars Tveito's Emacs/Org setup]].
@@ -91,7 +91,7 @@ This is my Emacs configuration, written in Org mode, which is mostly so I can lo
         (when (file-exists-p private-file)
           (load-file private-file)))))
    #+END_SRC
- 
+
 * Packages
 
    Managing extensions for Emacs is simplified using =package= which is
@@ -103,8 +103,7 @@ This is my Emacs configuration, written in Org mode, which is mostly so I can lo
     #+BEGIN_SRC emacs-lisp
     (require 'cl)
     (require 'package)
-    (setq package-enable-at-startup nil) ;; don't load packages before startup
-    (when (< emacs-major-version 27) (package-initialize)) ; package-initialize is deprecated in Emacs 27
+    (package-initialize)
     #+END_SRC
 
      Packages can be fetched from different mirrors, [[http://melpa.milkbox.net/#/][melpa]] is the largest
@@ -122,7 +121,9 @@ This is my Emacs configuration, written in Org mode, which is mostly so I can lo
      #+BEGIN_SRC emacs-lisp
      (let* ((packages '(
              use-package          ; Lazy loading and requirements for Emacs packages
-             base16-theme         ; Base16 color schemes for Emacs
+             base16-theme         ; Base16 color schemes for Emacs (good to have around)
+             zenburn-theme        ; zenburn color scheme
+             anti-zenburn-theme   ; anti-zenburn color scheme
 	     ivy                  ; abo-abo completion framework
 	     counsel              ; find things in the filesystem using ivy
 	     swiper               ; find things in an Emacs buffer using ivy
@@ -154,6 +155,19 @@ This is my Emacs configuration, written in Org mode, which is mostly so I can lo
 			  
 (require 'use-package) ;; make sure this is already loaded.
      #+END_SRC
+
+** counsel
+
+Use =counsel= for finding stuff 
+
+#+BEGIN_SRC emacs-lisp
+(use-package counsel
+  :ensure t
+  :config
+  (global-set-key (kbd "M-x") 'counsel-M-x)             ;; Give M-x counsel features
+  (global-set-key (kbd "C-x C-f") 'counsel-find-file)   ;; Give C-x C-f counsel features
+  (global-set-key (kbd "C-c g") 'counsel-git))          ;; Use C-c g for counsel-git globally
+#+END_SRC
 
 * Configurations
 ** Defaults
@@ -204,6 +218,22 @@ Use UTF-8 for everything by default (if this isn't already happening)
 (setq coding-system-for-write 'utf-8)
 #+END_SRC
 
+Garbage collect on focus-out, which should make Emacs feel a bit snappier:
+
+#+BEGIN_SRC emacs-lisp
+  (add-hook 'focus-out-hook #'garbage-collect)
+#+END_SRC
+
+We also want to empty the initial =*scratch*= buffer.
+#+BEGIN_SRC emacs-lisp
+  (setq-default initial-scratch-message "")
+#+END_SRC
+
+Finally, we want to confirm before exiting Emacs, just in case.
+#+BEGIN_SRC emacs-lisp
+  (setq-default confirm-kill-emacs 'yes-or-no-p)
+#+END_SRC
+
 ** Customized key bindings
 
 First things first, I want the Escape key to quit whatever I'm doing in the minibuffer.
@@ -231,9 +261,8 @@ I want to start creating new keybindings using =general= instead of this old-sch
   "\C-x\C-k" 'kill-region)
 
   (general-define-key
-  ;; replace default keybindings
-  "C-s" 'swiper             ; search for string in current buffer
-  "M-x" 'counsel-M-x)        ; replace default M-x with ivy backend
+  ;; replace default keybindings 
+  "C-s" 'swiper)             ; search for string in current buffer
 
 (general-define-key
  :prefix "C-c"
@@ -268,46 +297,59 @@ These are the bits of the configuration which are only necessary on Mac OS X (wh
 
 ** Theme, Fonts, and Appearance
 
-I like to use the Base16 themes. So far =base16-ashes= is what I like, but it changes pretty regularly. In the terminal (including on Windows Subsystem for Linux), I like to use =wheatgrass= instead because it works much better there.
+*** Theme
+
+I like the =zenburn= and =anti-zenburn= color schemes, depending on whether I'm in the mood for a dark theme or a light theme. I keep the =base16= theme package loaded because sometimes I'm in the mood to change to something else, but generally these days I want =anti-zenburn= with the option to enable =zenburn=. In the terminal (including on Windows Subsystem for Linux), I like to use =wheatgrass= instead because it works much better there.
 
 #+BEGIN_SRC emacs-lisp
-(if (window-system) (load-theme 'base16-ashes t nil) ;; (window-system) returns nil if emacs isn't running in one.
+(if (window-system) (load-theme 'anti-zenburn t nil) ;; (window-system) returns nil if emacs isn't running in one.
       (load-theme 'wheatgrass t nil)) ;; load wheatgrass if we can't use the base16 theme.
 #+END_SRC
 
 I like to use the dark theme most of the time but when I want a light theme, I like the light version of =base16-atelier-dune=, so I keep it loaded.
 
 #+BEGIN_SRC emacs-lisp
-(when (window-system) (load-theme 'base16-atelier-dune-light t t)) ;; load a light theme but don't enable it if there's a window system.
+(when (window-system) (load-theme 'zenburn t t)) ;; load the dark zenburn theme but don't enable it (only if there's a window system).
 #+END_SRC
 
-I like to use IBM Plex Mono as my coding font across all platforms, but it needs to be a different size depending on what OS I'm on because every one is special.
+*** Fonts
+
+  I like to use IBM Plex Mono on Linux and Mac, but it needs to be a different size depending on what OS I'm on. On Windows, I want to use Consolas instead (because it's better, but only on Windows).
+
+  #+BEGIN_SRC emacs-lisp
+     (if (memq window-system '(mac ns))
+      (set-face-attribute 'default nil :font "IBM Plex Mono" :height 165) ;; on OS X
+      (if (string-equal system-type "windows-nt") ;; if not Mac, check for Windows
+	(set-face-attribute 'default nil :font "Consolas" :height 120) ;; on Win
+	(set-face-attribute 'default nil :font "IBM Plex Mono" :height 110))) ;; on Linux
+  #+END_SRC
+
+*** GUI Appearance
+
+  We want to suppress the (hideous) Emacs splash screen, and also hide the icon-based toolbar, but not the menubar.
+
+  #+BEGIN_SRC emacs-lisp
+  (when window-system
+     (setq inhibit-startup-message t) ;; disable the startup screen
+     (tool-bar-mode 0)                ;; disable the tool bar
+     (tooltip-mode 0))                ;; disable the tooltips
+  #+END_SRC
+
+We also want to maximize by default when the GUI version opens:
 
 #+BEGIN_SRC emacs-lisp
-   (if (memq window-system '(mac ns))
-    (set-face-attribute 'default nil :font "IBM Plex Mono" :height 165) ;; on OS X
-    (if (string-equal system-type "windows-nt") ;; if not Mac, check for Windows
-      (set-face-attribute 'default nil :font "IBM Plex Mono" :height 120) ;; on Win
-      (set-face-attribute 'default nil :font "IBM Plex Mono" :height 110))) ;; on Linux
+  (add-hook 'window-setup-hook 'toggle-frame-maximized t)
 #+END_SRC
 
-We want to suppress the (hideous) Emacs splash screen, and also hide the icon-based toolbar, but not the menubar.
+
+** Load =custom.el= 
+
+We want to take the customization interface stuff from Emacs and load it, but keep it out of this file since adding stuff to this file might cause unpredictable behavior. We want Emacs to check for a =custom.el= file in the Emacs directory and then load it if it exists.
 
 #+BEGIN_SRC emacs-lisp
-  ;; Hide the splash screen and the toolbar
-   (setq inhibit-startup-message t)
-   (tool-bar-mode -1)
-#+END_SRC
-
-** custom-set-variables
-
-This sets the default width of =olivetti-mode= since I'm not sure how else to do it.
-
-#+BEGIN_SRC emacs-lisp
-  (custom-set-variables
-
-  ;; also set olivetti mode width since I don't know where else to do this
-   '(olivetti-body-width 72))
+(setq-default custom-file (expand-file-name "custom.el" user-emacs-directory))
+(when (file-exists-p custom-file)
+  (load custom-file))
 #+END_SRC
 
 * Mode-specific 
