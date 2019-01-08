@@ -1,6 +1,6 @@
 #+TITLE: Org-based Emacs configuration
 #+AUTHOR: Kevin Lipe
-#+BABEL: :cache yes
+*m#+BABEL: :cache yes
 #+PROPERTY: header-args :tangle yes
 
 * About
