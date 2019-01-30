@@ -195,9 +195,9 @@ To avoid file system clutter we put all auto saved files in a single directory.
 
  ;; Sets all files to be backed up and auto saved in a single directory.
  (setq backup-directory-alist
-   `((".*" . ,emacs-autosave-directory))
+   `((".*" . , "~/.emacs.d/autosaves"))
    auto-save-file-name-transforms
-   `((".*" ,emacs-autosave-directory t)))
+   `((".*" , "~/.emacs.d/autosaves" t)))
  #+END_SRC
 
 These are some other "sane" defaults:
