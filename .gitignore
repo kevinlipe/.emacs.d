@@ -56,3 +56,6 @@ recentf
 
 # server directory
 server/*
+
+# ignore "transient" directory
+transient/*

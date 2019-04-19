@@ -5,7 +5,7 @@
  ;; If there is more than one, they won't work right.
  '(olivetti-body-width 72)
  '(package-selected-packages
-   '(racket zenburn-theme which-key wc-goal-mode use-package spaceline request-deferred pandoc-mode ox-pandoc org-bullets olivetti markdown-mode magit general expand-region csv-mode counsel base16-theme auto-compile anti-zenburn-theme)))
+   '(major-mode-icons racket zenburn-theme which-key wc-goal-mode use-package spaceline request-deferred pandoc-mode ox-pandoc org-bullets olivetti markdown-mode magit general expand-region csv-mode counsel base16-theme auto-compile anti-zenburn-theme)))
  ;; set olivetti-mode column width
 (custom-set-faces
  ;; custom-set-faces was added by Custom.

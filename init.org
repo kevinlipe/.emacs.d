@@ -142,7 +142,7 @@ This is my Emacs configuration, written in Org mode, which is mostly so I can lo
 	     auto-compile         ; automatically compile Emacs Lisp libraries
              expand-region        ; Increase selected region by semantic units
 	     csv-mode             ; For working with .csv files intelligently
-             racket               ; Major mode for Racket programming
+	     mode-icons           ; Use pretty icons for some major modes
 	     try))                ; Try out Emacs packages
             ;; Remove all packages already installed
             (packages (remove-if 'package-installed-p packages)))
