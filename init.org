@@ -136,7 +136,6 @@ This is my Emacs configuration, written in Org mode, which is mostly so I can lo
              pandoc-mode          ; Minor mode for interacting with pandoc via hydra
 	     request              ; something URL related
 	     request-deferred     ; not really sure what this does
-	     spaceline            ; spacemacs-ish modeline thing
 	     wc-goal-mode         ; Set goal wordcounts (minor mode)
 	     with-editor          ; use Emacs as $EDITOR
 	     auto-compile         ; automatically compile Emacs Lisp libraries
