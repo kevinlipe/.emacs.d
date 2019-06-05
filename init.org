@@ -260,6 +260,10 @@ I want to start creating new keybindings using =general= instead of this old-sch
   "\C-x\C-k" 'kill-region)
 
   (general-define-key
+  ;; use M-o to switch windows
+  "M-o" 'other-window)
+
+  (general-define-key
   ;; replace default keybindings 
   "C-s" 'swiper)             ; search for string in current buffer
 
