@@ -343,7 +343,6 @@ We also want to maximize by default when the GUI version opens:
   (add-hook 'window-setup-hook 'toggle-frame-maximized t)
 #+END_SRC
 
-
 ** Load =custom.el= 
 
 We want to take the customization interface stuff from Emacs and load it, but keep it out of this file since adding stuff to this file might cause unpredictable behavior. We want Emacs to check for a =custom.el= file in the Emacs directory and then load it if it exists.
@@ -353,6 +352,18 @@ We want to take the customization interface stuff from Emacs and load it, but ke
 (when (file-exists-p custom-file)
   (load custom-file))
 #+END_SRC
+
+** Load =secret.el=
+
+We also want to allow for a =secret.el= file that isn't tracked by version control, to allow for settings like API keys and such to be loaded without having to be stored in a public place.
+
+#+BEGIN_SRC emacs-lisp
+
+(let ((secret.el (expand-file-name "secret.el" "~/.emacs.d/")))
+  (when (file-exists-p secret.el)
+    (load secret.el)))
+
+#+END_SRC 
 
 * Mode-specific 
 ** Markdown-mode
