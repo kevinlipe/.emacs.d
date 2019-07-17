@@ -547,6 +547,18 @@ There's an issue with garbage collection on Windows as of Emacs 25 that can caus
 
  #+END_SRC
 
+** Other Windows slowness mitigations
+
+From [[https://glitch.social/@gcupc/102411493157329333][this post]]:
+
+ #+BEGIN_SRC emacs-lisp
+
+(setq-default w32-pipe-read-delay 0
+  inhibit-compacting-font-caches t
+  bidi-display-reordering nil)
+
+ #+END_SRC
+
 * License
 
   My Emacs configurations written in Org mode. Format based on the Emacs configuration of Lars Tveito.
