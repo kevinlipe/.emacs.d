@@ -142,6 +142,7 @@ This is my Emacs configuration, written in Org mode, which is mostly so I can lo
              expand-region        ; Increase selected region by semantic units
 	     csv-mode             ; For working with .csv files intelligently
 	     try))                ; Try out Emacs packages
+	     racket-mode          ; Major mode for the Racket language.
             ;; Remove all packages already installed
             (packages (remove-if 'package-installed-p packages)))
        (when packages
