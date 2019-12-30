@@ -101,7 +101,7 @@ This is my Emacs configuration, written in Org mode, which is mostly so I can lo
    loaded, along with =package=, which is obviously needed.
 
     #+BEGIN_SRC emacs-lisp
-    (require 'cl)
+    (require 'cl-lib)
     (require 'package)
     (if (< emacs-major-version 27)(package-initialize))
     #+END_SRC
@@ -141,10 +141,9 @@ This is my Emacs configuration, written in Org mode, which is mostly so I can lo
 	     auto-compile         ; automatically compile Emacs Lisp libraries
              expand-region        ; Increase selected region by semantic units
 	     csv-mode             ; For working with .csv files intelligently
-	     try))                ; Try out Emacs packages
-	     racket-mode          ; Major mode for the Racket language.
-            ;; Remove all packages already installed
-            (packages (remove-if 'package-installed-p packages)))
+	     try                  ; Try out Emacs packages
+	     racket-mode)))         ; Major mode for the Racket language.
+                        
        (when packages
 	 (ignore-errors (package-refresh-contents)
 			(mapc 'package-install packages)
