@@ -122,8 +122,8 @@ This is my Emacs configuration, written in Org mode, which is mostly so I can lo
      (let* ((packages '(
              use-package          ; Lazy loading and requirements for Emacs packages
              base16-theme         ; Base16 color schemes for Emacs (good to have around)
-             zenburn-theme        ; zenburn color scheme
              anti-zenburn-theme   ; anti-zenburn color scheme
+	     plan9-theme          ; color scheme inspired by Plan 9
 	     ivy                  ; abo-abo completion framework
 	     counsel              ; find things in the filesystem using ivy
 	     swiper               ; find things in an Emacs buffer using ivy
@@ -311,7 +311,7 @@ I like the =zenburn= and =anti-zenburn= color schemes, depending on whether I'm 
 I like to use the dark theme most of the time but when I want a light theme, I like the light version of =base16-atelier-dune=, so I keep it loaded.
 
 #+BEGIN_SRC emacs-lisp
-(when (window-system) (load-theme 'zenburn t t)) ;; load the dark zenburn theme but don't enable it (only if there's a window system).
+(when (window-system) (load-theme 'plan9-theme t t)) ;; load the Plan 9 theme but don't enable it (only if there's a window system).
 #+END_SRC
 
 *** Fonts
