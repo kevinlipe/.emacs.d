@@ -122,7 +122,7 @@ This is my Emacs configuration, written in Org mode, which is mostly so I can lo
      (let* ((packages '(
              use-package          ; Lazy loading and requirements for Emacs packages
              base16-theme         ; Base16 color schemes for Emacs (good to have around)
-             zenburn-theme        ; zenburn color scheme
+             plan9-theme          ; A color scheme inspired by Plan 9 from Bell Labs
              anti-zenburn-theme   ; anti-zenburn color scheme
 	     ivy                  ; abo-abo completion framework
 	     counsel              ; find things in the filesystem using ivy
@@ -301,17 +301,13 @@ These are the bits of the configuration which are only necessary on Mac OS X (wh
 
 *** Theme
 
-I like the =zenburn= and =anti-zenburn= color schemes, depending on whether I'm in the mood for a dark theme or a light theme. I keep the =base16= theme package loaded because sometimes I'm in the mood to change to something else, but generally these days I want =anti-zenburn= with the option to enable =zenburn=. In the terminal (including on Windows Subsystem for Linux), I like to use =wheatgrass= instead because it works much better there.
+I like the =plan9= and =anti-zenburn= color schemes, depending on my mood. I generally dislike dark themes. I keep the =base16= theme package loaded because sometimes I'm in the mood to change to something else, but generally these days I want =plan9= with the option to enable =anti-zenburn=. In the terminal (including on Windows Subsystem for Linux), I like to use =wheatgrass= instead because it works much better there.
 
 #+BEGIN_SRC emacs-lisp
-(if (window-system) (load-theme 'anti-zenburn t nil) ;; (window-system) returns nil if emacs isn't running in one.
+(if (window-system) (load-theme 'plan9 t nil) ;; (window-system) returns nil if emacs isn't running in one.
       (load-theme 'wheatgrass t nil)) ;; load wheatgrass if we can't use the base16 theme.
-#+END_SRC
 
-I like to use the dark theme most of the time but when I want a light theme, I like the light version of =base16-atelier-dune=, so I keep it loaded.
-
-#+BEGIN_SRC emacs-lisp
-(when (window-system) (load-theme 'zenburn t t)) ;; load the dark zenburn theme but don't enable it (only if there's a window system).
+(when (window-system) (load-theme 'anti-zenburn t t)) ;; load the dark zenburn theme but don't enable it (only if there's a window system).
 #+END_SRC
 
 *** Fonts
