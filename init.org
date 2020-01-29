@@ -96,9 +96,7 @@ This is my Emacs configuration, written in Org mode, which is mostly so I can lo
 
    Managing extensions for Emacs is simplified using =package= which is
    built in to Emacs 24 and newer. To load downloaded packages we need to
-   initialize =package=. =cl= is a library that contains many functions from
-   Common Lisp, and comes in handy quite often, so we want to make sure it's
-   loaded, along with =package=, which is obviously needed.
+   initialize =package=. =cl-lib= is an alternative to the deprecated =cl= package.
 
     #+BEGIN_SRC emacs-lisp
     (require 'cl-lib)
@@ -106,7 +104,7 @@ This is my Emacs configuration, written in Org mode, which is mostly so I can lo
     (if (< emacs-major-version 27)(package-initialize))
     #+END_SRC
 
-     Packages can be fetched from different mirrors, [[http://melpa.milkbox.net/#/][melpa]] is the largest
+     Packages can be fetched from different mirrors; [[http://melpa.milkbox.net/#/][melpa]] is the largest
      archive and is well maintained.
 
     #+BEGIN_SRC emacs-lisp
@@ -140,10 +138,10 @@ This is my Emacs configuration, written in Org mode, which is mostly so I can lo
 	     with-editor          ; use Emacs as $EDITOR
 	     auto-compile         ; automatically compile Emacs Lisp libraries
              expand-region        ; Increase selected region by semantic units
-	     csv-mode             ; For working with .csv files intelligently
-	     try                  ; Try out Emacs packages
-	     racket-mode)))         ; Major mode for the Racket language.
-                        
+	     csv-mode))           ; For working with .csv files intelligently
+             ;; Remove all packages already installed
+	     (packages (cl-remove-if 'package-installed-p packages)))
+ 
        (when packages
 	 (ignore-errors (package-refresh-contents)
 			(mapc 'package-install packages)
@@ -153,19 +151,6 @@ This is my Emacs configuration, written in Org mode, which is mostly so I can lo
 			  
 (require 'use-package) ;; make sure this is already loaded.
      #+END_SRC
-
-** counsel
-
-Use =counsel= for finding stuff 
-
-#+BEGIN_SRC emacs-lisp
-(use-package counsel
-  :ensure t
-  :config
-  (global-set-key (kbd "M-x") 'counsel-M-x)             ;; Give M-x counsel features
-  (global-set-key (kbd "C-x C-f") 'counsel-find-file)   ;; Give C-x C-f counsel features
-  (global-set-key (kbd "C-c g") 'counsel-git))          ;; Use C-c g for counsel-git globally
-#+END_SRC
 
 * Configurations
 ** Defaults
@@ -203,11 +188,6 @@ These are some other "sane" defaults:
 Silently delete excess backup versions of files:
 #+BEGIN_SRC emacs-lisp
 (setq delete-old-versions -1)
-#+END_SRC
-
-Don't ask for confirmation when opening a symlinked file:
-#+BEGIN_SRC emacs-lisp
-(setq vc-follow-symlinks t)
 #+END_SRC
 
 Use UTF-8 for everything by default (if this isn't already happening)
@@ -362,6 +342,19 @@ We also want to allow for a =secret.el= file that isn't tracked by version contr
 #+END_SRC 
 
 * Mode-specific 
+** counsel
+
+ Use =counsel= for finding stuff 
+
+ #+BEGIN_SRC emacs-lisp
+ (use-package counsel
+   :ensure t
+   :config
+   (global-set-key (kbd "M-x") 'counsel-M-x)             ;; Give M-x counsel features
+   (global-set-key (kbd "C-x C-f") 'counsel-find-file)   ;; Give C-x C-f counsel features
+   (global-set-key (kbd "C-c g") 'counsel-git))          ;; Use C-c g for counsel-git globally
+ #+END_SRC
+
 ** Markdown-mode
 
 This is specific stuff for =markdown-mode= that makes things better.
