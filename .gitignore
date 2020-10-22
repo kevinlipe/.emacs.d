@@ -60,3 +60,6 @@ server/*
 # ignore "transient" directory
 transient/*
 bookmarks
+
+# don't track custom, more trouble than it's worth
+custom.el
