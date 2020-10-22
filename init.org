@@ -140,7 +140,8 @@ This is my Emacs configuration, written in Org mode, which is mostly so I can lo
 	     with-editor          ; use Emacs as $EDITOR
 	     which-key            ; show available keybindings in popup
 	     auto-compile         ; automatically compile Emacs Lisp libraries
-             expand-region))      ; Increase selected region by semantic units
+             expand-region        ; Increase selected region by semantic units
+	     undo-tree))          ; represent undo history as a branching tree of changes
 
              ;; Remove all packages already installed
 	     (packages (cl-remove-if 'package-installed-p packages)))
