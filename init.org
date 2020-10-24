@@ -153,7 +153,7 @@ This is my Emacs configuration, written in Org mode, which is mostly so I can lo
 			(when (memq window-system '(mac ns))
                           (package-install 'exec-path-from-shell)))))
 			  
-(require 'use-package) ;; make sure this is already loaded.
+	(require 'use-package) ;; make sure this is already loaded.
      #+END_SRC
 
 * Configurations
@@ -266,21 +266,6 @@ I want to start creating new keybindings using =general= instead of this old-sch
 (use-package which-key :ensure t)
 #+END_SRC
 
-** Mac OS X
-
-These are the bits of the configuration which are only necessary on Mac OS X (which is where I run this configuration half the time; the other half is spent on Fedora). =exec-path-from-shell= includes environment variables from the shell (things like =$PATH= and such). 
-
-   #+BEGIN_SRC emacs-lisp
-;; code to run only if we're on an OS X system
-(when (memq window-system '(mac ns))
-  ;; use GNU coreutils for dired (installed from Homebrew)
-  (setq insert-directory-program (executable-find "gls")) 
-  ;; use Command instead of Option as Meta
-  (setq mac-command-modifier 'meta) 
-  ;; don't do anything with Option
-  (setq mac-option-modifier nil))
-  #+END_SRC
-
 ** Theme, Fonts, and Appearance
 
 *** Theme
@@ -300,7 +285,7 @@ I like the =plan9= and =anti-zenburn= color schemes, depending on my mood. I gen
 
   #+BEGIN_SRC emacs-lisp
      (if (memq window-system '(mac ns))
-      (set-face-attribute 'default nil :font "IBM Plex Mono" :height 165) ;; on OS X
+      (set-face-attribute 'default nil :font "IBM Plex Mono" :height 175) ;; on OS X
       (if (string-equal system-type "windows-nt") ;; if not Mac, check for Windows
 	(set-face-attribute 'default nil :font "Consolas" :height 120) ;; on Win
 	(set-face-attribute 'default nil :font "IBM Plex Mono" :height 110))) ;; on Linux
@@ -481,76 +466,92 @@ We want =csv-mode= to automatically load when we open a file with the .csv exten
   :mode ("\\.csv\\'" . csv-mode))
 #+END_SRC
 
-* Windows configurations
+* Platform-specific configurations
+** Windows configurations
 
-Windows being what it is, there are configurations we need to make to make Emacs ([[https://github.com/m-parashar/emax64][the emax distribution]] for W64) behave in a Windows environment.
+ Windows being what it is, there are configurations we need to make to make Emacs ([[https://github.com/m-parashar/emax64][the emax distribution]] for W64) behave in a Windows environment.
 
-** Root directories
+*** Root directories
 
- We need to set all the right root directories, and then make sure =emax= knows that we're supposed to be using UTF-8 everywhere:
+  We need to set all the right root directories, and then make sure =emax= knows that we're supposed to be using UTF-8 everywhere:
 
- #+BEGIN_SRC emacs-lisp
- (when (string-equal system-type "windows-nt") ; test whether we're on Windows
+  #+BEGIN_SRC emacs-lisp
+  (when (string-equal system-type "windows-nt") ; test whether we're on Windows
 
-   ;; set variables for all of the various paths
-   (defvar emax-root (concat (expand-file-name "~") "/emax"))
-   (defvar emax-bin (concat emax-root "/bin"))
-   (defvar emax-bin64 (concat emax-root "/bin64"))
-   (defvar emax-mingw64 (concat emax-root "/mingw64/bin"))
-   (defvar emax-lisp (concat emax-root "/lisp"))
+    ;; set variables for all of the various paths
+    (defvar emax-root (concat (expand-file-name "~") "/emax"))
+    (defvar emax-bin (concat emax-root "/bin"))
+    (defvar emax-bin64 (concat emax-root "/bin64"))
+    (defvar emax-mingw64 (concat emax-root "/mingw64/bin"))
+    (defvar emax-lisp (concat emax-root "/lisp"))
 
-   ;; add the various paths to the $PATH (get it?)
-   (setq exec-path (cons emax-bin exec-path))
-   (setenv "PATH" (concat emax-bin ";" (getenv "PATH")))
+    ;; add the various paths to the $PATH (get it?)
+    (setq exec-path (cons emax-bin exec-path))
+    (setenv "PATH" (concat emax-bin ";" (getenv "PATH")))
 
-   (setq exec-path (cons emax-bin64 exec-path))
-   (setenv "PATH" (concat emax-bin64 ";" (getenv "PATH")))
+    (setq exec-path (cons emax-bin64 exec-path))
+    (setenv "PATH" (concat emax-bin64 ";" (getenv "PATH")))
 
-   (setq exec-path (cons emax-mingw64 exec-path))
-   (setenv "PATH" (concat emax-mingw64 ";" (getenv "PATH")))
+    (setq exec-path (cons emax-mingw64 exec-path))
+    (setenv "PATH" (concat emax-mingw64 ";" (getenv "PATH")))
 
-   (setenv "PATH" (concat "C:\\msys64\\usr\\bin;C:\\msys64\\mingw64\\bin;" (getenv "PATH"))))
- #+END_SRC
+    (setenv "PATH" (concat "C:\\msys64\\usr\\bin;C:\\msys64\\mingw64\\bin;" (getenv "PATH"))))
+  #+END_SRC
 
- The other important thing, since we're on Windows, where things get weird sometimes, is to make sure Emacs always knows everything should be UTF-8 instead of some weird Windows thing.
+  The other important thing, since we're on Windows, where things get weird sometimes, is to make sure Emacs always knows everything should be UTF-8 instead of some weird Windows thing.
 
- #+BEGIN_SRC emacs-lisp
- (when (string-equal system-type "windows-nt") ; test whether we're on Windows
-   ;; make sure everything is expecting UTF-8
-   (set-language-environment 'utf-8)
-   (setq locale-coding-system 'utf-8)
-   (set-default-coding-systems 'utf-8)
-   (set-terminal-coding-system 'utf-8)
-   (prefer-coding-system 'utf-8))
- #+END_SRC
+  #+BEGIN_SRC emacs-lisp
+  (when (string-equal system-type "windows-nt") ; test whether we're on Windows
+    ;; make sure everything is expecting UTF-8
+    (set-language-environment 'utf-8)
+    (setq locale-coding-system 'utf-8)
+    (set-default-coding-systems 'utf-8)
+    (set-terminal-coding-system 'utf-8)
+    (prefer-coding-system 'utf-8))
+  #+END_SRC
 
-** Garbage collection fixes
+*** Garbage collection fixes
 
-There's an issue with garbage collection on Windows as of Emacs 25 that can cause =org-mode= and =visual-line-mode= to run very slowly when moving from line to line. This is a hack to make the GC run less often on Windows than it would by default (not until 500MB have been allocated, and then only when Emacs is idle for 5s).
+  There's an issue with garbage collection on Windows as of Emacs 25 that can cause =org-mode= and =visual-line-mode= to run very slowly when moving from line to line. This is a hack to make the GC run less often on Windows than it would by default (not until 500MB have been allocated, and then only when Emacs is idle for 5s).
 
-(Credit for this fix goes to reddit user [[https://www.reddit.com/r/emacs/comments/55ork0/is_emacs_251_noticeably_slower_than_245_on_windows/d8cmm7v/][/u/DrSpotter]].)
+  (Credit for this fix goes to reddit user [[https://www.reddit.com/r/emacs/comments/55ork0/is_emacs_251_noticeably_slower_than_245_on_windows/d8cmm7v/][/u/DrSpotter]].)
 
- #+BEGIN_SRC emacs-lisp
+   #+BEGIN_SRC emacs-lisp
 
- (when (string-equal system-type "windows-nt") ; test whether we're on Windows
-   (setq gc-cons-threshold (* 511 1024 1024)) ; put off GC until 500MB of allocation
-   (setq gc-cons-percentage 0.5)
-   (run-with-idle-timer 5 t #'garbage-collect) ; GC only when idle for 5s
-   (setq garbage-collection-messages t))
+   (when (string-equal system-type "windows-nt") ; test whether we're on Windows
+     (setq gc-cons-threshold (* 511 1024 1024)) ; put off GC until 500MB of allocation
+     (setq gc-cons-percentage 0.5)
+     (run-with-idle-timer 5 t #'garbage-collect) ; GC only when idle for 5s
+     (setq garbage-collection-messages t))
 
- #+END_SRC
+   #+END_SRC
 
-** Other Windows slowness mitigations
+*** Other Windows slowness mitigations
 
-From [[https://glitch.social/@gcupc/102411493157329333][this post]]:
+ From [[https://glitch.social/@gcupc/102411493157329333][this post]]:
 
- #+BEGIN_SRC emacs-lisp
+  #+BEGIN_SRC emacs-lisp
 
-(setq-default w32-pipe-read-delay 0
-  inhibit-compacting-font-caches t
-  bidi-display-reordering nil)
+ (setq-default w32-pipe-read-delay 0
+   inhibit-compacting-font-caches t
+   bidi-display-reordering nil)
 
- #+END_SRC
+  #+END_SRC
+
+** macOS configurations
+
+ These are the bits of the configuration which are only necessary on Mac OS X (which is where I run this configuration half the time; the other half is spent on Fedora). =exec-path-from-shell= includes environment variables from the shell (things like =$PATH= and such). 
+
+    #+BEGIN_SRC emacs-lisp
+ ;; code to run only if we're on an OS X system
+ (when (memq window-system '(mac ns))
+   ;; use GNU coreutils for dired (installed from Homebrew)
+   (setq insert-directory-program (executable-find "gls")) 
+   ;; use Command instead of Option as Meta
+   (setq mac-command-modifier 'meta) 
+   ;; don't do anything with Option
+   (setq mac-option-modifier nil))
+   #+END_SRC
 
 * License
 
