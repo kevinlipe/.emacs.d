@@ -352,6 +352,7 @@ Configuration for SLIME stuff.
       (setq inferior-lisp-program "ros -Q run")
     (setq slime-auto-connect 'ask)
 
+;; this is Windows-specific but Windows is my only CL environment at the moment
 (load (expand-file-name "C:/Users/klipe/.roswell/helper.el"))
 
   (defun my-slime-setup ()
