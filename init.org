@@ -107,7 +107,6 @@ This is my Emacs configuration, written in Org mode, which is mostly so I can lo
      #+BEGIN_SRC emacs-lisp
 	    (let* ((packages '(
 		    use-package          ; Lazy loading and requirements for Emacs packages
-		    slime                ; SLIME for working in Common Lisp
 		    base16-theme         ; Base16 color schemes for Emacs (good to have around)
 		    csv-mode             ; For working with .csv files intelligently
 		    plan9-theme          ; A color scheme inspired by Plan 9 from Bell Labs
@@ -318,53 +317,6 @@ We also want to allow for a =secret.el= file that isn't tracked by version contr
 
 #+END_SRC 
 
-* Common Lisp and SLIME
-
-Configuration for SLIME stuff, assuming SBCL and Quicklisp have been installed using [[https://github.com/roswell/roswell][roswell]].
-
-First we load all of the helper stuff, depending on what platform we're on:
-
-#+BEGIN_SRC emacs-lisp
-
-  (if (string-equal system-type "windows-nt") ; test whether we're on Windows
-    ;; load this stuff if we are on Windows
-    (load (expand-file-name "C:/Users/klipe/.roswell/helper.el"))
-    ;; load this stuff if we're /not/ on Windows
-    (load (expand-file-name "~/.roswell/helper.el")))
-  (if (string-equal system-type "windows-nt")
-    ;; TODO: replace this with path to Windows SLIME helper
-    nil
-    ;; this is where the SLIME helper is on non-Windows
-    (load (expand-file-name "~/.roswell/lisp/quicklisp/slime-helper.el")))
-
-#+END_SRC emacs-lisp
-
-Then we tell Emacs what our other Lisp program is, and tell it to ask before SLIME auto-connects:
-
-#+BEGIN_SRC emacs-lisp
-
-  (setq inferior-lisp-program "ros -Q run")
-  (setq slime-auto-connect 'ask)
-
-#+END_SRC emacs-lisp
-
-And then we do our SLIME setup stuff.
-
-#+BEGIN_SRC emacs-lisp
-
-	      (defun my-slime-setup ()
-		      (require 'slime)
-		      (slime-setup))
-		    (defvar my--slime-setup-done nil)
-		    (defun my-slime-setup-once ()
-		      (unless my--slime-setup-done
-			(my-slime-setup)
-			(setq my--slime-setup-done t)))
-		    (defadvice lisp-mode (before my-slime-setup-once activate)
-		      (my-slime-setup-once))
-
-#+END_SRC emacs-lisp
-   
 * Mode-specific 
 ** counsel
 
