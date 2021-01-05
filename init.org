@@ -158,20 +158,26 @@ Answering /yes/ and /no/ to each question from Emacs can be tedious, a single /y
 (fset 'yes-or-no-p 'y-or-n-p)
 #+END_SRC
 
-To avoid file system clutter we put all auto saved files in a single directory.
+To avoid file system clutter we put all auto saved files in a single directory. We also set up our backup-saving parameters here.
 
 #+BEGIN_SRC emacs-lisp
-(defvar emacs-autosave-directory
-  (concat user-emacs-directory "autosaves/")
-  "This variable dictates where to put auto saves. It is set to a
-  directory called autosaves located wherever your .emacs.d/ is
-  located.")
 
- ;; Sets all files to be backed up and auto saved in a single directory.
- (setq backup-directory-alist
-   `((".*" . , "~/.emacs.d/autosaves"))
-   auto-save-file-name-transforms
-   `((".*" , "~/.emacs.d/autosaves" t)))
+(defvar --backup-directory (concat user-emacs-directory "backups"))
+(if (not (file-exists-p --backup-directory))
+        (make-directory --backup-directory t))
+(setq backup-directory-alist `(("." . ,--backup-directory)))
+(setq make-backup-files t               ; backup of a file the first time it is saved.
+      backup-by-copying t               ; don't clobber symlinks
+      version-control t                 ; version numbers for backup files
+      delete-old-versions t             ; delete excess backup files silently
+      delete-by-moving-to-trash t
+      kept-old-versions 6               ; oldest versions to keep when a new numbered backup is made (default: 2)
+      kept-new-versions 9               ; newest versions to keep when a new numbered backup is made (default: 2)
+      auto-save-default t               ; auto-save every buffer that visits a file
+      auto-save-timeout 20              ; number of seconds idle time before auto-save (default: 30)
+      auto-save-interval 200            ; number of keystrokes between auto-saves (default: 300)
+      )
+
  #+END_SRC
 
 These are some other "sane" defaults:
@@ -209,7 +215,7 @@ First things first, I want the Escape key to quit whatever I'm doing in the mini
 
 #+BEGIN_SRC emacs-lisp
 ;; make Esc quit whatever's happening in the minibuffer
-; Map escape to cancel (like C-g)...
+
 (define-key isearch-mode-map [escape] 'isearch-abort)   ;; isearch
 (define-key isearch-mode-map "\e" 'isearch-abort)   ;; \e seems to work better for terminals
 (global-set-key [escape] 'keyboard-escape-quit)         ;; everywhere else
