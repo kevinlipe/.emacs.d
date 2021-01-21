@@ -366,7 +366,7 @@ We also want to allow for a =secret.el= file that isn't tracked by version contr
 
 #+BEGIN_SRC emacs-lisp
 
-(let ((secret.el (expand-file-name "secret.el" "~/.emacs.d/")))
+(let ((secret.el (expand-file-name "secret.el" user-emacs-directory)))
   (when (file-exists-p secret.el)
     (load secret.el)))
 
