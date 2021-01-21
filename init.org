@@ -446,6 +446,17 @@ Automatically load Org for =org= files.
   :config (setq org-log-done t)) ; don't remember what this does
 
 #+END_SRC
+*** =RET= vs. =kp-enter=
+
+    On some of my laptops, hitting =M-return= actually sends a =kp-enter= to Emacs, which means some of my Org default keybindings (specifically =M-RET= and =M-S-RET=) stop working and I get a "=M-enter is undefined=" message. This binds =kp-enter= to do the same things so that I don't have those problems anymore.
+
+#+BEGIN_SRC emacs-lisp
+
+  (org-defkey org-mode-map (kbd "M-<return>") #'org-meta-return)
+  (org-defkey org-mode-map (kbd "M-<enter>") #'org-meta-return)
+  (org-defkey org-mode-map (kbd "M-RET") #'org-meta-return)
+
+#+END_SRC
 
 *** org-bullets
 
