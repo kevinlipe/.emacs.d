@@ -446,18 +446,6 @@ Automatically load Org for =org= files.
   :config (setq org-log-done t)) ; don't remember what this does
 
 #+END_SRC
-*** =RET= vs. =kp-enter=
-
-    On some of my laptops, hitting =M-return= actually sends a =kp-enter= to Emacs, which means some of my Org default keybindings (specifically =M-RET= and =M-S-RET=) stop working and I get a "=M-enter is undefined=" message. This binds =kp-enter= to do the same things so that I don't have those problems anymore.
-
-#+BEGIN_SRC emacs-lisp
-
-  (org-defkey org-mode-map (kbd "M-<return>") #'org-meta-return)
-  (org-defkey org-mode-map (kbd "M-<enter>") #'org-meta-return)
-  (org-defkey org-mode-map (kbd "M-RET") #'org-meta-return)
-
-#+END_SRC
-
 *** org-bullets
 
  Make sure the fancy =org-bullets= is installed for fancy UTF-8 bullets in Org.
@@ -466,6 +454,16 @@ Automatically load Org for =org= files.
  (use-package org-bullets
    :hook (org-mode . org-bullets-mode))
  #+END_SRC
+
+*** =RET= vs. =kp-enter=
+
+    On some of my laptops, hitting =M-return= actually sends a =kp-enter= to Emacs, which means some of my Org default keybindings (specifically =M-RET= and =M-S-RET=) stop working and I get a "=M-enter is undefined=" message. This binds =kp-enter= to do the same things so that I don't have those problems anymore.
+
+#+BEGIN_SRC emacs-lisp
+
+;  TODO: Figure out a cleaner way to implement this that doesn't break the rest of the configuration.
+
+#+END_SRC
 
 *** ox-pandoc
 
