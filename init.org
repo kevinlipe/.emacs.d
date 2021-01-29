@@ -79,7 +79,7 @@ This is my Emacs configuration, written in Org mode, which is mostly so I can lo
 
    (add-hook 'after-save-hook 'tangle-init)
    #+END_SRC
-
+   
 * Packages
 
    Managing extensions for Emacs is simplified using =package= which is
@@ -360,15 +360,15 @@ We want to take the customization interface stuff from Emacs and load it, but ke
   (load custom-file))
 #+END_SRC
 
-** Load =secret.el=
+** Load =local.el=
 
-We also want to allow for a =secret.el= file that isn't tracked by version control, to allow for settings like API keys and such to be loaded without having to be stored in a public place.
+We also want to allow for a =local.el= file that isn't tracked by version control, to allow for settings like API keys and such to be loaded without having to be stored in a public place, and to allow machine-specific settings to be stored somewhere out of the Git repo.
 
 #+BEGIN_SRC emacs-lisp
 
-(let ((secret.el (expand-file-name "secret.el" "~/.emacs.d/")))
-  (when (file-exists-p secret.el)
-    (load secret.el)))
+(let ((local.el (expand-file-name "local.el" "~/.emacs.d/")))
+  (when (file-exists-p local.el)
+    (load local.el)))
 
 #+END_SRC 
 
@@ -469,6 +469,12 @@ Automatically load Org for =org= files.
    (setq org-pandoc-options-for-latex-pdf '((latex-engine . "xelatex")))
  #+END_SRC
 
+*** TODO Org keymapping on weird laptops
+
+ I have a Chinese-made Atom laptop (an Onda Xiaoma 21) that I love, but the keyboard isn't /quite/ right; it uses the ANSI layout but right Alt is actually AltGr and the Enter key actually sends the =kp-enter= signal to Emacs, like it's the keypad enter. I need to remap =kp-enter= to sent =RET= so that Org will actually do the right thing when I'm using it on the Xiaoma 21.
+
+ Only thing is, I haven't figured out how to do that yet. When I tried it previously, it broke all of my other machines. I may end up moving it to =custom.el= and forgetting about it here.
+ 
 ** nXML mode
 
 A function borrowed from [[http://stackoverflow.com/questions/12492/pretty-printing-xml-files-on-emacs#12534][someone else borrowing it from]] [[http://blog.bookworm.at/2007/03/pretty-print-xml-with-emacs.html][Benjamin Ferrari]] for pretty-printing a region of XML being edited with =nxml-mode=.
