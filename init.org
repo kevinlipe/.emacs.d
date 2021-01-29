@@ -455,16 +455,6 @@ Automatically load Org for =org= files.
    :hook (org-mode . org-bullets-mode))
  #+END_SRC
 
-*** =RET= vs. =kp-enter=
-
-    On some of my laptops, hitting =M-return= actually sends a =kp-enter= to Emacs, which means some of my Org default keybindings (specifically =M-RET= and =M-S-RET=) stop working and I get a "=M-enter is undefined=" message. This binds =kp-enter= to do the same things so that I don't have those problems anymore.
-
-#+BEGIN_SRC emacs-lisp
-
-;  TODO: Figure out a cleaner way to implement this that doesn't break the rest of the configuration.
-
-#+END_SRC
-
 *** ox-pandoc
 
  Set everything to be a standalone =pandoc= export except for HTML output, which is to be copied and pasted into a blog editor anyway. =xelatex= is installed, so we want to use that for PDF output from Org mode.
