@@ -330,7 +330,7 @@ I like the =plan9= and =anti-zenburn= color schemes, depending on my mood. I gen
       (set-face-attribute 'default nil :font "IBM Plex Mono" :height 175) ;; on OS X
       (if (string-equal system-type "windows-nt") ;; if not Mac, check for Windows
 	(set-face-attribute 'default nil :font "Consolas" :height 110) ;; on Win
-	(set-face-attribute 'default nil :font "IBM Plex Mono" :height 110))) ;; on Linux
+	(set-face-attribute 'default nil :font "IBM Plex Mono" :height 120))) ;; on Linux
   #+END_SRC
 
 *** GUI Appearance
