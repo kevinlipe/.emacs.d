@@ -498,11 +498,13 @@ by using nxml's indentation rules."
 
 ** SLIME
 
-This is the stuff to get SLIME working.
+This is the stuff to get SLIME working with Roswell's =ros -Q run= command.
 
 #+BEGIN_SRC emacs-lisp
-  (if (string-equal system-type "windows-nt") ;; if on Windows. Other systems tk
-	(load (expand-file-name "~/../../.roswell/helper.el")))
+  (if (string-equal system-type "windows-nt") ;; if on Windows, use a different path for ~
+	(load (expand-file-name "~/../../.roswell/helper.el"))
+  (load (expand-file-name "~/.roswell/helper.el")))
+  (setq inferior-lisp-program "ros -Q run")
 #+END_SRC
 
 ** wc-goal-mode
