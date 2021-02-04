@@ -124,6 +124,7 @@ This is my Emacs configuration, written in Org mode, which is mostly so I can lo
 		    pandoc-mode          ; Minor mode for interacting with pandoc via hydra
 		    request              ; something URL related
 		    request-deferred     ; not really sure what this does
+        slime                ; Major interactive mode for Lisp development
 		    wc-goal-mode         ; Set goal wordcounts (minor mode)
 		    with-editor          ; use Emacs as $EDITOR
 		    which-key            ; show available keybindings in popup
@@ -493,6 +494,15 @@ by using nxml's indentation rules."
         (backward-char) (insert "\n"))
       (indent-region begin end))
     (message "Ah, much better!"))
+#+END_SRC
+
+** SLIME
+
+This is the stuff to get SLIME working.
+
+#+BEGIN_SRC emacs-lisp
+  (if (string-equal system-type "windows-nt") ;; if on Windows. Other systems tk
+	(load (expand-file-name "~/../../.roswell/helper.el")))
 #+END_SRC
 
 ** wc-goal-mode
