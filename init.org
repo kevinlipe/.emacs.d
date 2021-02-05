@@ -105,41 +105,42 @@ This is my Emacs configuration, written in Org mode, which is mostly so I can lo
      The configuration assumes that the packages listed below are installed. To ensure we install missing packages if they are missing.
 
      #+BEGIN_SRC emacs-lisp
-	    (let* ((packages '(
-		    use-package          ; Lazy loading and requirements for Emacs packages
-		    base16-theme         ; Base16 color schemes for Emacs (good to have around)
-		    csv-mode             ; For working with .csv files intelligently
-		    plan9-theme          ; A color scheme inspired by Plan 9 from Bell Labs
-		    anti-zenburn-theme   ; anti-zenburn color scheme
-		    ivy                  ; abo-abo completion framework
-		    counsel              ; find things in the filesystem using ivy
-		    general              ; "convenience wrappers for keybindings"
-		    swiper               ; find things in an Emacs buffer using ivy
-		    magit                ; control Git from Emacs
-		    markdown-mode        ; Major mode for editing Markdown files
-		    org                  ; Outline-based notes manager
-		    org-bullets          ; Fancy UTF-8 bullets for org
-		    ox-pandoc            ; org exporter for pandoc
-		    olivetti             ; Minor mode for a nice writing environment.
-		    pandoc-mode          ; Minor mode for interacting with pandoc via hydra
-		    request              ; something URL related
-		    request-deferred     ; not really sure what this does
-                    slime                ; Major interactive mode for Lisp development
-		    wc-goal-mode         ; Set goal wordcounts (minor mode)
-		    with-editor          ; use Emacs as $EDITOR
-		    which-key            ; show available keybindings in popup
-		    auto-compile         ; automatically compile Emacs Lisp libraries
-		    expand-region))      ; Increase selected region by semantic units
+        (let* ((packages '(
+            use-package          ; Lazy loading and requirements for Emacs packages
+            base16-theme         ; Base16 color schemes for Emacs (good to have around)
+            csv-mode             ; For working with .csv files intelligently
+            plan9-theme          ; A color scheme inspired by Plan 9 from Bell Labs
+            anti-zenburn-theme   ; anti-zenburn color scheme
+            ivy                  ; abo-abo completion framework
+            counsel              ; find things in the filesystem using ivy
+            general              ; "convenience wrappers for keybindings"
+            swiper               ; find things in an Emacs buffer using ivy
+            magit                ; control Git from Emacs
+            markdown-mode        ; Major mode for editing Markdown files
+            org                  ; Outline-based notes manager
+            org-bullets          ; Fancy UTF-8 bullets for org
+            ox-pandoc            ; org exporter for pandoc
+            olivetti             ; Minor mode for a nice writing environment.
+            pandoc-mode          ; Minor mode for interacting with pandoc via hydra
+            paredit              ; Minor mode for Lisp editing goodness
+            request              ; something URL related
+            request-deferred     ; not really sure what this does
+            slime                ; Major interactive mode for Lisp development
+            wc-goal-mode         ; Set goal wordcounts (minor mode)
+            with-editor          ; use Emacs as $EDITOR
+            which-key            ; show available keybindings in popup
+            auto-compile         ; automatically compile Emacs Lisp libraries
+            expand-region))      ; Increase selected region by semantic units
 
-		    ;; Remove all packages already installed
-		    (packages (cl-remove-if 'package-installed-p packages)))
+            ;; Remove all packages already installed
+            (packages (cl-remove-if 'package-installed-p packages)))
 
-	      (when packages
-		(ignore-errors (package-refresh-contents)
-			       (mapc 'package-install packages)
-			       ;; This package is only relevant for Mac OS X.
-			       (when (memq window-system '(mac ns))
-				 (package-install 'exec-path-from-shell)))))
+          (when packages
+        (ignore-errors (package-refresh-contents)
+                   (mapc 'package-install packages)
+                   ;; This package is only relevant for Mac OS X.
+                   (when (memq window-system '(mac ns))
+                 (package-install 'exec-path-from-shell)))))
 
        (require 'use-package) ;; make sure this is already loaded.
      #+END_SRC
