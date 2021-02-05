@@ -124,7 +124,7 @@ This is my Emacs configuration, written in Org mode, which is mostly so I can lo
 		    pandoc-mode          ; Minor mode for interacting with pandoc via hydra
 		    request              ; something URL related
 		    request-deferred     ; not really sure what this does
-        slime                ; Major interactive mode for Lisp development
+                    slime                ; Major interactive mode for Lisp development
 		    wc-goal-mode         ; Set goal wordcounts (minor mode)
 		    with-editor          ; use Emacs as $EDITOR
 		    which-key            ; show available keybindings in popup
