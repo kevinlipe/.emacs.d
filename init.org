@@ -505,8 +505,8 @@ This is the stuff to get SLIME working with Roswell's =ros -Q run= command.
   (cond
     ;; If on Windows, use Roswell via scoop
     ((string-equal system-type "windows-nt") 
-    ((load (expand-file-name "~/../../.roswell/helper.el"))
-      (setq inferior-lisp-program "ros -Q run")))
+      (load (expand-file-name "~/../../.roswell/helper.el"))
+      (setq inferior-lisp-program "ros -Q run"))
 
     ;; If on anything else (Linux or Mac for me) use Quicklisp slime and sbcl
     (t (load (expand-file-name "~/quicklisp/slime-helper.el"))
