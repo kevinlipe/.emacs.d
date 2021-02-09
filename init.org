@@ -499,7 +499,7 @@ by using nxml's indentation rules."
 
 ** SLIME
 
-This is the stuff to get SLIME working with Roswell's =ros -Q run= command.
+This is the stuff to get SLIME working on the three operating systems I could be on at any given point in time.
 
 #+BEGIN_SRC emacs-lisp
   (cond
@@ -508,7 +508,12 @@ This is the stuff to get SLIME working with Roswell's =ros -Q run= command.
       (load (expand-file-name "~/../../.roswell/helper.el"))
       (setq inferior-lisp-program "ros -Q run"))
 
-    ;; If on anything else (Linux or Mac for me) use Quicklisp slime and sbcl
+    ;; If on Mac, use a "normal" Roswell setup
+    ((string-equal window-system "mac")
+      (load (expand-file-name "~/.roswell/helper.el"))
+      (setq inferior-lisp-program "ros run"))
+
+    ;; If on anything else (Linux for me) use Quicklisp slime and system sbcl
     (t (load (expand-file-name "~/quicklisp/slime-helper.el"))
       (setq inferior-lisp-program "sbcl")))
 #+END_SRC
