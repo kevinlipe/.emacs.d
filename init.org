@@ -448,6 +448,21 @@ Automatically load Org for =org= files.
   :config (setq org-log-done t)) ; don't remember what this does
 
 #+END_SRC
+
+*** =org-refile= settings
+
+We want to allow creation of new headers when refiling current headers.
+
+#+BEGIN_SRC emacs-lisp
+(setq org-refile-allow-creating-parent-nodes 'confirm)
+#+END_SRC
+
+We also want to be able refile to any of the first three levels of an outline, on the local file /and/ on any of the files in the =org-agenda-files= list (which we're currently not populating with anything, but might in the future).
+
+#+BEGIN_SRC emacs-lisp
+(setq org-refile-targets `((nil :maxlevel . 3) (org-agenda-files :maxlevel . 3)))
+#+ENG_SRC
+
 *** org-bullets
 
  Make sure the fancy =org-bullets= is installed for fancy UTF-8 bullets in Org.
