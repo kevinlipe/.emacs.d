@@ -461,7 +461,7 @@ We also want to be able refile to any of the first three levels of an outline, o
 
 #+BEGIN_SRC emacs-lisp
 (setq org-refile-targets `((nil :maxlevel . 3) (org-agenda-files :maxlevel . 3)))
-#+ENG_SRC
+#+END_SRC
 
 *** org-bullets
 
