@@ -107,6 +107,7 @@ This is my Emacs configuration, written in Org mode, which is mostly so I can lo
      #+BEGIN_SRC emacs-lisp
         (let* ((packages '(
             use-package          ; Lazy loading and requirements for Emacs packages
+            acme-theme           ; Acme-based color scheme, similar to plan9-theme
             base16-theme         ; Base16 color schemes for Emacs (good to have around)
             csv-mode             ; For working with .csv files intelligently
             plan9-theme          ; A color scheme inspired by Plan 9 from Bell Labs
@@ -314,13 +315,15 @@ I want to start creating new keybindings using =general= instead of this old-sch
 
 *** Theme
 
-I like the =plan9= and =anti-zenburn= color schemes, depending on my mood. I generally dislike dark themes. I keep the =base16= theme package loaded because sometimes I'm in the mood to change to something else, but generally these days I want =plan9= with the option to enable =anti-zenburn=. In the terminal (including on Windows Subsystem for Linux), I like to use =wheatgrass= instead because it works much better there.
+I like the =plan9= and =acme= color schemes, depending on my mood. Both are based on Plan 9 and its =acme= editor, but one is a little better for Org mode stuff and one is a little better for code editing and things like that. I switch between them liberally. For now, =acme= is the default.
+
+In the terminal (including on Windows Subsystem for Linux), I like to use =wheatgrass= instead because it works much better there.
 
 #+BEGIN_SRC emacs-lisp
-(if (window-system) (load-theme 'plan9 t nil) ;; (window-system) returns nil if emacs isn't running in one.
+(if (window-system) (load-theme 'acme t nil) ;; (window-system) returns nil if emacs isn't running in one.
       (load-theme 'wheatgrass t nil)) ;; load wheatgrass if we can't use the base16 theme.
 
-(when (window-system) (load-theme 'anti-zenburn t t)) ;; load the dark zenburn theme but don't enable it (only if there's a window system).
+(when (window-system) (load-theme 'plan9 t t)) ;; load the acme theme but don't enable it (only if there's a window system).
 #+END_SRC
 
 *** Fonts
