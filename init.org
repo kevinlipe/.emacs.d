@@ -126,7 +126,6 @@ This is my Emacs configuration, written in Org mode, which is mostly so I can lo
             paredit              ; Minor mode for Lisp editing goodness
             request              ; something URL related
             request-deferred     ; not really sure what this does
-            slime                ; Major interactive mode for Lisp development
             wc-goal-mode         ; Set goal wordcounts (minor mode)
             with-editor          ; use Emacs as $EDITOR
             which-key            ; show available keybindings in popup
@@ -335,7 +334,7 @@ In the terminal (including on Windows Subsystem for Linux), I like to use =wheat
       (set-face-attribute 'default nil :font "IBM Plex Mono" :height 175) ;; on OS X
       (if (string-equal system-type "windows-nt") ;; if not Mac, check for Windows
 	(set-face-attribute 'default nil :font "Consolas" :height 110) ;; on Win
-	(set-face-attribute 'default nil :font "IBM Plex Mono" :height 120))) ;; on Linux
+	(set-face-attribute 'default nil :font "IBM Plex Mono" :height 110))) ;; on Linux
   #+END_SRC
 
 *** GUI Appearance
@@ -507,27 +506,6 @@ by using nxml's indentation rules."
         (backward-char) (insert "\n"))
       (indent-region begin end))
     (message "Ah, much better!"))
-#+END_SRC
-
-** SLIME
-
-This is the stuff to get SLIME working on the three operating systems I could be on at any given point in time.
-
-#+BEGIN_SRC emacs-lisp
-  (cond
-    ;; If on Windows, use Roswell via scoop
-    ((string-equal system-type "windows-nt") 
-      (load (expand-file-name "~/../../.roswell/helper.el"))
-      (setq inferior-lisp-program "ros -Q run"))
-
-    ;; If on Mac, use a "normal" Roswell setup
-    ((string-equal window-system "mac")
-      (load (expand-file-name "~/.roswell/helper.el"))
-      (setq inferior-lisp-program "ros run"))
-
-    ;; If on anything else (Linux for me) use Quicklisp slime and system sbcl
-    (t (load (expand-file-name "~/quicklisp/slime-helper.el"))
-      (setq inferior-lisp-program "sbcl")))
 #+END_SRC
 
 ** wc-goal-mode
